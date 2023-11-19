@@ -37,6 +37,27 @@ public class Viaje {
 	public LocalDate getFechaDeFin() {
 		return this.circuitoARecorrer.fechaFinDelCircuitoAPartir(this.fechaDeInicio);
 	}
+
+
+
+	public boolean llegaAUnPuertoEnEstaFecha(LocalDate fechaDeLlegada) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	public boolean llegaA(String puertoDestino) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	public Object saleDeLaTerminalGestionadaEn(LocalDate fechaDeSalida) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

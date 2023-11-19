@@ -15,7 +15,7 @@ public class BuscadorPuertoDestino implements IBuscadorViajes {
 	public List<Viaje> filtrar(List<Viaje> viajesAFiltrar) {
 		
 	    List<Viaje> resultado = viajesAFiltrar.stream()
-	            .filter(viaje -> viaje.getPuertoDestino() == puertoDestino)
+	            .filter(viaje -> viaje.llegaA(puertoDestino))
 	            .collect(Collectors.toList());
 	    return resultado;
 

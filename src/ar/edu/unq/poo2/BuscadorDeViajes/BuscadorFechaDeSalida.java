@@ -17,7 +17,7 @@ public class BuscadorFechaDeSalida implements IBuscadorViajes {
 	public List<Viaje> filtrar(List<Viaje> viajesAFiltrar) {
 		
 	    List<Viaje> resultado = viajesAFiltrar.stream()
-	            .filter(viaje -> viaje.getFechaDeInicio() == fechaDeSalida)
+	            .filter(viaje -> viaje.saleDeLaTerminalGestionadaEn(fechaDeSalida))
 	            .collect(Collectors.toList());
 	    return resultado;
 
