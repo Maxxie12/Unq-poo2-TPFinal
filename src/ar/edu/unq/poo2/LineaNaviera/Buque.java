@@ -1,5 +1,6 @@
 package ar.edu.unq.poo2.LineaNaviera;
 
+import ar.edu.unq.poo2.EstadoBuque.IFaseBuque;
 import ar.edu.unq.poo2.EstadoBuque.Outbound;
 
 public class Buque {

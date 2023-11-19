@@ -1,4 +1,6 @@
-package ar.edu.unq.poo2.LineaNaviera;
+package ar.edu.unq.poo2.EstadoBuque;
+
+import ar.edu.unq.poo2.LineaNaviera.Buque;
 
 public interface IFaseBuque {
 
