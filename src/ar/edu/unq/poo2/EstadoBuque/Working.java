@@ -1,4 +1,7 @@
-package ar.edu.unq.poo2.LineaNaviera;
+package ar.edu.unq.poo2.EstadoBuque;
+
+import ar.edu.unq.poo2.LineaNaviera.Buque;
+import ar.edu.unq.poo2.LineaNaviera.IFaseBuque;
 
 public class Working implements IFaseBuque {
 
