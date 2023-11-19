@@ -54,9 +54,9 @@ public class Viaje {
 
 
 
-	public Object saleDeLaTerminalGestionadaEn(LocalDate fechaDeSalida) {
+	public boolean saleDeLaTerminalGestionadaEn(LocalDate fechaDeSalida) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 	
 	
