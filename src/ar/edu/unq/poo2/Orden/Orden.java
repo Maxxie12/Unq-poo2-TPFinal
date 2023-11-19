@@ -19,7 +19,7 @@ public abstract class Orden {
 	private ArrayList <Servicio> serviciosContratados = new ArrayList <Servicio>();
 	private Camion camionAsignado;
 	private Conductor conductorAsignado;
-	private Container datosDeLaCarga; /// no deberia ser container y datos de la carga un metodo???
+	private Container container; 
 	
 	
 	public Orden(LocalDateTime fechaDeSalida, LocalDateTime fechaDeLlegada, Cliente importador, Cliente exportador,
@@ -34,8 +34,52 @@ public abstract class Orden {
 		this.serviciosContratados = serviciosContratados;
 		this.camionAsignado = camionAsignado;
 		this.conductorAsignado = conductorAsignado;
-		this.datosDeLaCarga = container;
+		this.container = container;
 	}
 	
-	
+
+
+	public LocalDateTime getFechaDeSalida() {
+		return fechaDeSalida;
+	}
+
+
+	public LocalDateTime getFechaDeLlegada() {
+		return fechaDeLlegada;
+	}
+
+
+	public Cliente getImportador() {
+		return importador;
+	}
+
+
+	public Cliente getExportador() {
+		return exportador;
+	}
+
+
+	public Viaje getViajeSeleccionado() {
+		return viajeSeleccionado;
+	}
+
+
+	public ArrayList<Servicio> getServiciosContratados() {
+		return serviciosContratados;
+	}
+
+
+	public Camion getCamionAsignado() {
+		return camionAsignado;
+	}
+
+
+	public Conductor getConductorAsignado() {
+		return conductorAsignado;
+	}
+
+	public Container getContainer() {
+		return container;
+	}
+
 }
