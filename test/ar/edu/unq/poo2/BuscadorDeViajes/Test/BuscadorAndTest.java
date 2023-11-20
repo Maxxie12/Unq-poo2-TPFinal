@@ -1,4 +1,4 @@
-package ar.edu.unq.poo2.BuscadorDeViajes.test;
+package ar.edu.unq.poo2.BuscadorDeViajes.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ class BuscadorAndTest {
 	BuscadorAnd					 buscadorAnd;
 	BuscadorPuertoDestino 		 buscadorPuertoDestino;
 	BuscadorFechaDeLlegada		 buscadorFechaDeLlegada;
+	String						 puertoDestino;
+	LocalDate					 fechaDeLlegada;
 	
 
  
@@ -44,26 +47,26 @@ class BuscadorAndTest {
 		viajesAFiltrar = new ArrayList<>();
 
 	    
-	    when(viaje1.getFechaDeFin()).thenReturn();	  
-		when(viaje2.getFechaDeFin()).thenReturn();
-        when(viaje3.getFechaDeFin()).thenReturn();
+	    when(viaje1.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(true);	  
+		when(viaje2.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(false);
+        when(viaje3.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(false);
         
-        when(viaje1.getPuertoDestino()).thenReturn();
-        when(viaje2.getPuertoDestino()).thenReturn();
-        when(viaje3.getPuertoDestino()).thenReturn();
+        when(viaje1.llegaA(puertoDestino)).thenReturn(true);
+        when(viaje2.llegaA(puertoDestino)).thenReturn(false);
+        when(viaje3.llegaA(puertoDestino)).thenReturn(true);
        
 		
 		viajesAFiltrar.add(viaje1);
 		viajesAFiltrar.add(viaje2);
 		viajesAFiltrar.add(viaje3);
-		viajesAFiltrar.add(viaje4);
+		
 	
 	}
 	
 	@Test
 	void buscadorAndNoContiene() {
-		
-		
+		buscadorPuertoDestino.setPuertoABuscar("MarDelPlata");
+		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 20));
 		assertFalse(buscadorAnd.filtrar(viajesAFiltrar).contains(viaje1));
 		
 		
