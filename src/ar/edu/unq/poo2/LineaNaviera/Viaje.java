@@ -2,18 +2,23 @@ package ar.edu.unq.poo2.LineaNaviera;
 
 import java.time.LocalDate;
 
+import ar.edu.unq.poo2.Terminal.TerminalGestionada;
+
 public class Viaje {
 
 	private Circuito 	 circuitoARecorrer;
 	private Buque 		 buqueAsignado;
 	private LocalDate 	 fechaDeInicio;
+	private LocalDate    fechaDeLLegadaAlaTerminalGestionada;
 	
 	
 	
-	public Viaje(Circuito circuito, Buque buque, LocalDate fecha) {
-		this.circuitoARecorrer = circuito;
-		this.buqueAsignado	   = buque;
-		this.fechaDeInicio	   = fecha;
+	public Viaje(Circuito circuito, Buque buque, LocalDate fecha, TerminalGestionada terminalGestionada) {
+		
+		this.circuitoARecorrer 					 = circuito;
+		this.buqueAsignado	  					 = buque;
+		this.fechaDeInicio	   					 = fecha;
+		this.fechaDeLLegadaAlaTerminalGestionada = circuito.fechaDeLLegadaA(terminalGestionada);
 	}
 
 
@@ -38,25 +43,24 @@ public class Viaje {
 		return this.circuitoARecorrer.fechaFinDelCircuitoAPartir(this.fechaDeInicio);
 	}
 
-
+	public LocalDate getFechaDeLlegadaALaTerminalGestionada(){
+		return this.fechaDeLLegadaAlaTerminalGestionada;
+	}
 
 	public boolean llegaAUnPuertoEnEstaFecha(LocalDate fechaDeLlegada) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.circuitoARecorrer.llegaAUnPuertoEstaFecha(this.fechaDeInicio, fechaDeLlegada);
 	}
 
 
 
 	public boolean llegaA(String puertoDestino) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.circuitoARecorrer.esteCircuitoVaALaTerminal(puertoDestino);
 	}
 
 
 
 	public boolean saleDeLaTerminalGestionadaEn(LocalDate fechaDeSalida) {
-		// TODO Auto-generated method stub
-		return true;
+		return this.fechaDeLLegadaAlaTerminalGestionada.equals(fechaDeSalida);
 	}
 	
 	

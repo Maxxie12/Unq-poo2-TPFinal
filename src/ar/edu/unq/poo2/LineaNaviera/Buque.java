@@ -58,6 +58,7 @@ public class Buque {
 		
 	}
 	
+	
 
 	public void avisarDepart() {
 		tramoRecorriendoActualmente.getTerminalDestino().elBuqueAbandonoLasCercanias(this);

@@ -3,19 +3,27 @@ package ar.edu.unq.poo2.LineaNaviera;
 import java.time.LocalDate;
 import java.util.List;
 
+import ar.edu.unq.poo2.Terminal.TerminalGestionada;
+
 public class LineaNaviera {
 	
 	private String         nombre;
 	private List<Circuito> circuitosRegistrados;
 	private List<Buque> buquesRegistrados;
 	private List<Viaje> viajesDisponibles;
+	private TerminalGestionada terminalGestionada;
 	
-	public LineaNaviera(String nombre,List<Circuito> circuitos ,List<Buque> buques,List<Viaje> viajes) {
+	public LineaNaviera(String nombre,List<Circuito> circuitos ,List<Buque> buques,List<Viaje> viajes,TerminalGestionada terminal) {
+		
+		
 		this.nombre 			  = nombre;
 		this.circuitosRegistrados = circuitos;
 		this.buquesRegistrados    = buques;
 		this.viajesDisponibles    = viajes;
+		this.terminalGestionada   = terminalGestionada;
 	}
+	
+	
 	
 	public void registrarBuque(Buque b) {
 		this.buquesRegistrados.add(b);
@@ -28,7 +36,7 @@ public class LineaNaviera {
 	public void crearViaje(Circuito c, Buque b, LocalDate fecha) {
 		
 		if (this.estaRegistradoElCircuito(c) && this.estaRegistradoElCircuito(b)) {
-			this.viajesDisponibles.add(new Viaje(c,b,fecha));
+			this.viajesDisponibles.add(new Viaje(c,b,fecha,this.terminalGestionada));
 		}
 		else {
 			 throw new IllegalArgumentException("El circuito o el buque no están registrados.");

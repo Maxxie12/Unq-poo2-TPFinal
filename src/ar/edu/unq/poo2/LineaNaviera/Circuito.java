@@ -2,7 +2,9 @@ package ar.edu.unq.poo2.LineaNaviera;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
 
 import ar.edu.unq.poo2.Terminal.Terminal;
 
@@ -61,9 +63,9 @@ public class Circuito {
 	}
 	
 	
-	public boolean esteCircuitoVaALaTerminal(Terminal t) {
+	public boolean esteCircuitoVaALaTerminal(String terminalDestino) {
 		   return this.tramosDelCircuito.stream()
-		            .anyMatch(tramo -> tramo.getTerminalDestino().equals(t));
+		            .anyMatch(tramo -> tramo.getTerminalDestino().getNombre().equals(terminalDestino));
 		}
 
 	public LocalDate fechaFinDelCircuitoAPartir(LocalDate fechaDeInicio) {
@@ -73,8 +75,27 @@ public class Circuito {
 		return fechaDeInicio.plusDays(cantidadDeDiasQueSeTardaEnRecorrer);
 			   
 	}
+	
+	public List<LocalDate> fechasLlegadaATerminales(LocalDate fechaSalida) {
+        List<LocalDate> fechasLlegada = new ArrayList<LocalDate>();
+
+        for (Tramo tramo : tramosDelCircuito) {
+            fechaSalida = fechaSalida.plusDays(tramo.getTiempoQueTardaEnRecorrer());
+            fechasLlegada.add(fechaSalida);
+        }
+
+        return fechasLlegada;
+    }
+
+	public boolean llegaAUnPuertoEstaFecha(LocalDate fechaDeInico, LocalDate fechaDeLlegada) {
+		return this.fechasLlegadaATerminales(fechaDeInico).stream()
+				.anyMatch(f -> f.equals(fechaDeLlegada));
+	}
+
+	
+	
+	
+	
 }
-	
-	
-	
+
 	
