@@ -15,7 +15,7 @@ public class MenorCantParadas implements IMejorCircuito{
 		
 		
 		for(Circuito circuito : circuitosAFiltrar) {
-			if(circuito.cantidadDeTramos()<=mejorCircuito.cantidadDeTramos()){
+			if(circuito.getTramosDelCircuito().size()< mejorCircuito.getTramosDelCircuito().size()){
 				mejorCircuito = circuito;
 			}
 		}

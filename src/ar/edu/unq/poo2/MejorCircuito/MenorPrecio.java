@@ -14,28 +14,14 @@ public class MenorPrecio implements IMejorCircuito{
 			TerminalGestionada terminalOrigen) {
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
 		for(int i=0;i<circuitosAFiltrar.size();i++) {
-			if(circuitosAFiltrar.get(i).costoTotalDelCircuito()<mejorCircuito.costoTotalDelCircuito()) {
+			if(circuitosAFiltrar.get(i).getCostoTotal()<mejorCircuito.getCostoTotal()) {
 				mejorCircuito=circuitosAFiltrar.get(i);
 			}
 		}
 		
 		return mejorCircuito;
 		
-		/*
-		 * public int cantidadDeTramos() {
-		return this.tramosDelCircuito.size();
-	}
-
-	public double costoTotalDelCircuito() {
-		double result = 0;
-		for(Tramo tramo : tramosDelCircuito ) {
-			result= result + tramo.getPrecio();
-		}
-		return result;
-	}
-
-		 * 
-		 */
+		
 	}
 
 }
