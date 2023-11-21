@@ -3,20 +3,21 @@ package ar.edu.unq.poo2.Terminal;
 import ar.edu.unq.poo2.LineaNaviera.Buque;
 
 public abstract class Terminal {
-
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+	private String nombreDeLaTermianl;
+	
+	public Terminal(String nombre) {
+		this.nombreDeLaTermianl=nombre;
 	}
 	
-	public void inminenteArriboDelBuque(Buque buque) {
-		// TODO Auto-generated method stub
-		
+	
+	public String getNombre() {
+		return this.nombreDeLaTermianl;
+	}
+	
+	public void inminenteArriboDelBuque(Buque buque) {	
 	}
 	
 	public void elBuqueAbandonoLasCercanias(Buque buque) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	

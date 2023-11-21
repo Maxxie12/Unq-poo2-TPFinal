@@ -14,16 +14,20 @@ public class Tramo {
 	
 	public Tramo(double precio, int tiempoQueTardaEnRecorrer, Terminal terInc , Terminal terFin) {
 		
-		 if (terInc.getNombre().equals(terFin.getNombre())) {
-	            throw new IllegalArgumentException("Las terminales de inicio y destino no pueden ser iguales.");
-	        }
+		exepcionTerminalesIguales(terInc, terFin);
 		this.precio 				  = precio;
 		this.tiempoQueTardaEnRecorrerEnDias = tiempoQueTardaEnRecorrer;
 		this.terminalIncio 			  = terInc;
 		this.terminalDestino 		  = terFin;
 	}
+
+	private void exepcionTerminalesIguales(Terminal terInc, Terminal terFin) {
+		if (terInc.getNombre().equals(terFin.getNombre())) {
+	            throw new IllegalArgumentException("Las terminales de inicio y destino no pueden ser iguales.");
+	        }
+	}
 	
-	
+// GETTERS	
 	
 	public double getPrecio() {
 		return this.precio;
@@ -43,7 +47,8 @@ public class Tramo {
 		return this.terminalDestino;
 
 	}
-	
+
+//Calculados
 	 public LocalDate calcularFechaDeLLegadaSaliendoAhora() {
 	        // Obtén la fecha actual
 	        LocalDate fechaActual = LocalDate.now();

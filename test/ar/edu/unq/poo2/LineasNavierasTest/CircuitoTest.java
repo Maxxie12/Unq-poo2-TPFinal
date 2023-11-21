@@ -203,7 +203,7 @@ class CircuitoTest {
 	
 	@Test
 	void testUnCircuitoSabeLaCantidadDeDiasQueTardaEnRecorrerse(){
-			assertEquals(circuitoTest.tiempoTotalEnDias(), 60);
+			assertEquals(circuitoTest.getTiempoTotalEnDias(), 60);
 		}
 	
 	

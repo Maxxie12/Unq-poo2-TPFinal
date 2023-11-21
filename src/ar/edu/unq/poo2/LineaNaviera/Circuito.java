@@ -14,14 +14,20 @@ public class Circuito {
 	
 	public Circuito(List<Tramo> tramos) {
         
-        if (!this.esValidoParaUnCircuito(tramos)) {
-            throw new IllegalArgumentException("Esta lista de tramos es invalida.");
-        }
+        exepcionCircuitoInvalido(tramos);
+        
         this.terminalIncio = tramos.get(0).getTerminalInicio();
         this.terminalFinal = tramos.get(tramos.size()-1).getTerminalDestino();        
         this.tramosDelCircuito = tramos;
 	
 }
+
+	private void exepcionCircuitoInvalido(List<Tramo> tramos) {
+		//Es invalido si los tramos no estan en orden de terminales 
+		if (!this.esValidoParaUnCircuito(tramos)) {
+            throw new IllegalArgumentException("Esta lista de tramos es invalida.");
+        }
+	}
 	
 	private boolean esValidoParaUnCircuito(List<Tramo> tramos) {
 		     
@@ -52,11 +58,15 @@ public class Circuito {
 	}
 	
 	public void agregarTramo(Tramo t) {
+		exepcionTramoNoContinuaElCircuito(t);
+		this.terminalFinal = t.getTerminalDestino();
+		this.tramosDelCircuito.add(t);
+	}
+
+	private void exepcionTramoNoContinuaElCircuito(Tramo t) {
 		if (!t.getTerminalInicio().getNombre().equals(this.terminalFinal.getNombre())) {
 			throw new IllegalArgumentException("Este tramo no continua el circuito actual.");
 		}
-		this.terminalFinal = t.getTerminalDestino();
-		this.tramosDelCircuito.add(t);
 	}
 	
 	
@@ -65,17 +75,7 @@ public class Circuito {
 		            .anyMatch(tramo -> tramo.getTerminalDestino().getNombre().equals(terminalDestino));
 		}
 
-	public Terminal getTerminalIncio() {
-		return terminalIncio;
-	}
-
-	public Terminal getTerminalFinal() {
-		return terminalFinal;
-	}
-
-	public List<Tramo> getTramosDelCircuito() {
-		return tramosDelCircuito;
-	}
+	
 
 	public LocalDate fechaFinDelCircuitoAPartir(LocalDate fechaDeInicio) {
 		int cantidadDeDiasQueSeTardaEnRecorrer = this.tramosDelCircuito.stream()
@@ -134,7 +134,7 @@ public class Circuito {
 		return this.terminalIncio.getNombre() == terminal.getNombre();
 	}
 
-	
+	//GETTERS
 
 	public double getCostoTotal() {
 		
@@ -143,12 +143,23 @@ public class Circuito {
 				   .sum();
 	}
     
-	public int tiempoTotalEnDias() {
+	public int getTiempoTotalEnDias() {
 		return this.tramosDelCircuito.stream()
 				   .mapToInt(t -> t.getTiempoQueTardaEnRecorrer())
 				   .sum();
 	}
 	
+	public Terminal getTerminalIncio() {
+		return terminalIncio;
+	}
+
+	public Terminal getTerminalFinal() {
+		return terminalFinal;
+	}
+
+	public List<Tramo> getTramosDelCircuito() {
+		return tramosDelCircuito;
+	}
 	
 	
 	

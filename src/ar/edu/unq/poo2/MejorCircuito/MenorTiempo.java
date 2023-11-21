@@ -14,7 +14,7 @@ public class MenorTiempo implements IMejorCircuito{
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
 		
 		for(int i=0;i<circuitosAFiltrar.size();i++) {
-			if(circuitosAFiltrar.get(i).tiempoTotalEnDias() < mejorCircuito.tiempoTotalEnDias()) {
+			if(circuitosAFiltrar.get(i).getTiempoTotalEnDias() < mejorCircuito.getTiempoTotalEnDias()) {
 				mejorCircuito=circuitosAFiltrar.get(i);
 			}
 		}
