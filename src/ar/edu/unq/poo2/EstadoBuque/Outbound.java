@@ -8,7 +8,7 @@ public class Outbound implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
-		b.cambiarFase(new Inbound());
+		b.setFase(new Inbound());
 		b.avisarTerminalDeInminenteArribo();
 
 	}

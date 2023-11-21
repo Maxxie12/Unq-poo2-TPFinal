@@ -201,6 +201,11 @@ class CircuitoTest {
 			assertEquals(circuitoTest.fechaFinDelCircuitoAPartir(LocalDate.now()), LocalDate.now().plusDays(60));
 		}
 	
+	@Test
+	void testUnCircuitoSabeLaCantidadDeDiasQueTardaEnRecorrerse(){
+			assertEquals(circuitoTest.tiempoTotalEnDias(), 60);
+		}
+	
 	
 	
 	

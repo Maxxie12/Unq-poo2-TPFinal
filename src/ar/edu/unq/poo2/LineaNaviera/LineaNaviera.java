@@ -19,14 +19,29 @@ public class LineaNaviera {
 		
 		
 		this.nombre 			  = nombre;
-		this.circuitosRegistrados = this.borrarCircuitosQueNoIncluyanALaTerminal(circuitos, terminal);;
+		
+		this.circuitosRegistrados = this.borrarCircuitosQueNoIncluyanALaTerminal(circuitos, terminal);
+		
 		this.buquesRegistrados    = buques;
+		this.registrarseEnBuques();
+		
 		this.terminalGestionada   = terminal;
+		
 		this.viajesDisponibles    = this.viajesQueSePuedenRegistrar(viajes);
 	}
 	
 	
-	
+
+
+	private void registrarseEnBuques() {
+		this.buquesRegistrados.stream()
+		.forEach(b -> b.setLineaNaviera(this));
+		
+	}
+
+
+
+
 	private List<Circuito> borrarCircuitosQueNoIncluyanALaTerminal(List<Circuito> circuitos, TerminalGestionada terminal) {
 		return circuitos.stream()
 				.filter(c -> c.esteCircuitoVaALaTerminal(terminal.getNombre()))
@@ -42,6 +57,7 @@ public class LineaNaviera {
 	}
 
 	public void registrarBuque(Buque b) {
+		b.setLineaNaviera(this);
 		this.buquesRegistrados.add(b);
 	}
 	
@@ -93,6 +109,8 @@ public class LineaNaviera {
 		return this.viajesDisponibles;
 	}
 
-	
+	public TerminalGestionada getTerminal() {
+		return this.terminalGestionada;
+	}
 	
 }

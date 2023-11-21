@@ -6,7 +6,7 @@ public class Inbound implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
-		b.cambiarFase(new Arrived());
+		b.setFase(new Arrived());
 
 	}
 

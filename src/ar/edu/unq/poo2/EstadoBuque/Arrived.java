@@ -6,7 +6,7 @@ public class Arrived implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
-		b.cambiarFase(new Working());
+		b.setFase(new Working());
 
 	}
 

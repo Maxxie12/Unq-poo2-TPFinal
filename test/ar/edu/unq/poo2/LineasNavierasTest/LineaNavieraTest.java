@@ -2,6 +2,8 @@ package ar.edu.unq.poo2.LineasNavierasTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -100,6 +102,14 @@ class LineaNavieraTest {
 	}
 	
 	@Test
+	void testUnLineaNavieraSeRegistraEnTodosLosBuquesAlCrearse() {
+		//el circuito 3 no pasa por la terminal gestionada asi que no deberia estar en la lista de circuitos
+		LineaNaviera test = new LineaNaviera("Evergreen", circuitos, buques, viajes, terminalGestionda);
+		 verify(buqueRegistrado, times(1)).setLineaNaviera(test);
+	     verify(buqueRegistrado, times(1)).setLineaNaviera(test);
+	}	
+	
+	@Test
 	void testUnLineaNavieraBorraTodosLosViajesDeLosCualesNoTengaRegistradosLosCircuitosOBuques() {
 		//el viaje dos al tener el cir3 no pasa por la terminal por ende no se deberia registrarce
 		LineaNaviera test = new LineaNaviera("Evergreen", circuitos, buques, viajes, terminalGestionda);
@@ -162,5 +172,10 @@ class LineaNavieraTest {
 	@Test
 	void testUnLineaNavieraPuedeDevolverSuNombre() {
 		assertEquals(lineaTest.getNombre(), "COSCO");
+	}
+	
+	@Test
+	void testUnLineaNavieraPuedeDevolverLaTerminalGestionda() {
+		assertEquals(lineaTest.getTerminal(), terminalGestionda);
 	}
 }

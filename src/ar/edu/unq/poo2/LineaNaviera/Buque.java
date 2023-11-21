@@ -6,8 +6,7 @@ import ar.edu.unq.poo2.EstadoBuque.Outbound;
 public class Buque {
 	
 	private String 	patenteDeBuque;
-	private Viaje  	viajeRecorriendoActualmente;
-	private Tramo  	tramoRecorriendoActualmente;
+	private LineaNaviera lineaNavieraALaCualEstaRegistrado;
 	private IFaseBuque  faseDelBuqueActual;
 	
 	public Buque(String patente) {
@@ -19,58 +18,46 @@ public class Buque {
 		return this.patenteDeBuque;
 	}
 
-	public Viaje getViajeRecorriendoActualmente() {
-		return this.viajeRecorriendoActualmente;
-	}
-
-	public Tramo getTramoRecorriendoActualmente() {
-		return this.tramoRecorriendoActualmente;
-	}
-
+	
 	public IFaseBuque getFaseDelBuqueActual() {
 		return this.faseDelBuqueActual;
 	}
 	
-	
-	
-	public void avanzarFase() {
-		this.faseDelBuqueActual.pasarDeFase(this);
+	public LineaNaviera getLineaNaviera() {
+		noEstaRegistrado();
+		return this.lineaNavieraALaCualEstaRegistrado;
 	}
 	
-	public void cambiarFase(IFaseBuque faseSiguiente) {
+	public void setLineaNaviera(LineaNaviera lineaN) {
+		this.lineaNavieraALaCualEstaRegistrado = lineaN;
+	}
+	
+	public void actualizarEstado() {
+		noEstaRegistrado();
+		this.faseDelBuqueActual.pasarDeFase(this);
+	}
+
+	private void noEstaRegistrado() {
+		if (this.lineaNavieraALaCualEstaRegistrado == null) {
+			throw new IllegalArgumentException("No tenemos acceso a la informacion de este buque ya que no esta registrado a niguna Linea Naviera");
+		}
+	}
+	
+	public void setFase(IFaseBuque faseSiguiente) {
 		this.faseDelBuqueActual = faseSiguiente;
 	}
 	
-	
-	
-	public void setViajeRecorriendoActualmente(Viaje viajeRecorriendoActualmente) {
-		this.viajeRecorriendoActualmente = viajeRecorriendoActualmente;
-	}
-
-	public void setTramoRecorriendoActualmente(Tramo tramoRecorriendoActualmente) {
-		this.tramoRecorriendoActualmente = tramoRecorriendoActualmente;
-	}
-
-	
-	
+		
 	public void avisarTerminalDeInminenteArribo() {
-		tramoRecorriendoActualmente.getTerminalDestino().inminenteArriboDelBuque(this);
+		this.lineaNavieraALaCualEstaRegistrado.getTerminal().inminenteArriboDelBuque(this);
 		
 	}
 	
-	
-
 	public void avisarDepart() {
-		tramoRecorriendoActualmente.getTerminalDestino().elBuqueAbandonoLasCercanias(this);
-		this.pasarAlSiguienteTramo();
-		
+		lineaNavieraALaCualEstaRegistrado.getTerminal().elBuqueAbandonoLasCercanias(this);	
 	}
 
-	private void pasarAlSiguienteTramo() {
-		this.tramoRecorriendoActualmente = this.viajeRecorriendoActualmente
-											.getCircuitoARecorrer()
-											.siguienteTramoA(tramoRecorriendoActualmente);
-	}
+	
 	
 	
 }

@@ -6,7 +6,7 @@ public class Departing implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
-			b.cambiarFase(new Outbound());
+			b.setFase(new Outbound());
 			b.avisarDepart();
 
 	}
