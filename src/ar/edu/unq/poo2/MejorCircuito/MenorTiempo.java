@@ -11,8 +11,17 @@ public class MenorTiempo implements IMejorCircuito{
 	@Override
 	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino,
 			TerminalGestionada terminalOrigen) {
-		// TODO Auto-generated method stub
-		return null;
+		Circuito mejorCircuito = circuitosAFiltrar.get(0);
+		
+		for(int i=0;i<circuitosAFiltrar.size();i++) {
+			if(circuitosAFiltrar.get(i).tiempoTotalEnDias() < mejorCircuito.tiempoTotalEnDias()) {
+				mejorCircuito=circuitosAFiltrar.get(i);
+			}
+		}
+		return mejorCircuito;
 	}
-
+	
+	
 }
+	
+

@@ -143,7 +143,13 @@ public class Circuito {
 				   .sum();
 	}
     
-
+	public int tiempoTotalEnDias() {
+		int diasQueSeTardaEnRecorrerElCircuito = 0;
+		for (int i = 0; i < tramosDelCircuito.size(); i++) {
+			diasQueSeTardaEnRecorrerElCircuito = diasQueSeTardaEnRecorrerElCircuito + tramosDelCircuito.get(i).getTiempoQueTardaEnRecorrer();
+		}
+		return diasQueSeTardaEnRecorrerElCircuito;
+	}
 	
 	
 	
