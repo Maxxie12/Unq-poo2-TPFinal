@@ -2,6 +2,7 @@ package ar.edu.unq.poo2.LineaNaviera;
 
 import java.time.LocalDate;
 
+import ar.edu.unq.poo2.Terminal.Terminal;
 import ar.edu.unq.poo2.Terminal.TerminalGestionada;
 
 public class Viaje {
@@ -13,12 +14,12 @@ public class Viaje {
 	
 	
 	
-	public Viaje(Circuito circuito, Buque buque, LocalDate fecha, TerminalGestionada terminalGestionada) {
+	public Viaje(Circuito circuito, Buque buque, LocalDate fecha, Terminal terminalGestionada) {
 		
 		this.circuitoARecorrer 					 = circuito;
 		this.buqueAsignado	  					 = buque;
 		this.fechaDeInicio	   					 = fecha;
-		this.fechaDeLLegadaAlaTerminalGestionada = circuito.fechaDeLLegadaA(terminalGestionada);
+		this.fechaDeLLegadaAlaTerminalGestionada = circuito.fechaDeLLegadaA(terminalGestionada,fecha);
 	}
 
 

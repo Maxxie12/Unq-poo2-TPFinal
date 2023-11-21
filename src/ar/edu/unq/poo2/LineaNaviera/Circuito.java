@@ -3,9 +3,6 @@ package ar.edu.unq.poo2.LineaNaviera;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
-
-
 import ar.edu.unq.poo2.Terminal.Terminal;
 
 public class Circuito {
@@ -28,18 +25,18 @@ public class Circuito {
 	
 	private boolean esValidoParaUnCircuito(List<Tramo> tramos) {
 		     
-		if (tramosDelCircuito == null || tramosDelCircuito.isEmpty()) {
+		if (tramos.isEmpty()) {
 		// Si la lista está vacía, no puede ser un circuito válido
 			return false;
 	    }
 
 	   // Verificar que la terminal de destino de cada tramo coincide con la terminal de inicio del siguiente
-		for (int i = 0; i < tramosDelCircuito.size() - 1; i++) {
-			String terminalDestinoActual = tramosDelCircuito.get(i).getTerminalDestino().getNombre();
-			String terminalInicioSiguiente = tramosDelCircuito.get(i + 1).getTerminalInicio().getNombre();
+		for (int i = 0; i < tramos.size() - 1; i++) {
+			String terminalDestinoActual = tramos.get(i).getTerminalDestino().getNombre();
+			String terminalInicioSiguiente = tramos.get(i + 1).getTerminalInicio().getNombre();
 
 		            if (!terminalDestinoActual.equals(terminalInicioSiguiente)) {
-		                return false;
+		                return false; 
 		            }
 		        }		        
 		        return true;
@@ -51,7 +48,7 @@ public class Circuito {
         return this.tramosDelCircuito.stream()
                 .filter(tramo -> tramo.getTerminalInicio().getNombre().equals(terminalDestino))
                 .findFirst()
-        		.orElseThrow(() -> new NoSuchElementException("No hay siguiente tramo."));
+        		.orElseThrow(() -> new IllegalArgumentException("No hay siguiente tramo."));
 	}
 	
 	public void agregarTramo(Tramo t) {
@@ -67,6 +64,18 @@ public class Circuito {
 		   return this.tramosDelCircuito.stream()
 		            .anyMatch(tramo -> tramo.getTerminalDestino().getNombre().equals(terminalDestino));
 		}
+
+	public Terminal getTerminalIncio() {
+		return terminalIncio;
+	}
+
+	public Terminal getTerminalFinal() {
+		return terminalFinal;
+	}
+
+	public List<Tramo> getTramosDelCircuito() {
+		return tramosDelCircuito;
+	}
 
 	public LocalDate fechaFinDelCircuitoAPartir(LocalDate fechaDeInicio) {
 		int cantidadDeDiasQueSeTardaEnRecorrer = this.tramosDelCircuito.stream()
@@ -91,6 +100,49 @@ public class Circuito {
 		return this.fechasLlegadaATerminales(fechaDeInico).stream()
 				.anyMatch(f -> f.equals(fechaDeLlegada));
 	}
+
+
+    public LocalDate fechaDeLLegadaA(Terminal terminal, LocalDate fecha) {
+        LocalDate fechaLlegada = fecha;
+            
+        noTieneEsTerminalExepcion(terminal);
+        
+        for (Tramo tramo : this.tramosDelCircuito) {
+            // Verificar si el tramo incluye la terminal de destino
+        	
+            if (tramo.getTerminalDestino().getNombre().equals(terminal.getNombre())) {
+                // Calcular la fecha de llegada acumulada sumando el tiempo que tarda en recorrer en días
+                return fechaLlegada = fechaLlegada.plusDays(tramo.getTiempoQueTardaEnRecorrer());
+            }
+            	
+            fechaLlegada = fechaLlegada.plusDays(tramo.getTiempoQueTardaEnRecorrer());
+            
+            
+        }
+		return fecha; 
+
+        
+    }
+
+	private void noTieneEsTerminalExepcion(Terminal terminal) {
+		if(!this.esteCircuitoVaALaTerminal(terminal.getNombre()) && !estaTerminalIniciaDeEstaTerminal(terminal)) {
+        	 throw new IllegalArgumentException("El Cicuito no pasa por esa terminal");
+        }
+	}
+
+	private boolean estaTerminalIniciaDeEstaTerminal(Terminal terminal) {
+		return this.terminalIncio.getNombre() == terminal.getNombre();
+	}
+
+	
+
+	public double getCostoTotal() {
+		
+		return this.tramosDelCircuito.stream()
+				   .mapToDouble(t -> t.getPrecio())
+				   .sum();
+	}
+    
 
 	
 	public int cantidadDeTramos() {
