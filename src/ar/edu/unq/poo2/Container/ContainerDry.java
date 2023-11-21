@@ -6,5 +6,7 @@ public class ContainerDry extends Container{
 		super(ancho, largo, altura, tipoContainer, id);
 		// TODO Auto-generated constructor stub
 	}
-
+	public double consumo() {
+		
+	}
 }

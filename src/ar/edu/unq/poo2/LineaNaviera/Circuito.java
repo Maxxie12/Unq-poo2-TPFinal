@@ -93,7 +93,18 @@ public class Circuito {
 	}
 
 	
-	
+	public int cantidadDeTramos() {
+		return this.tramosDelCircuito.size();
+	}
+
+	public double costoTotalDelCircuito() {
+		double result = 0;
+		for(Tramo tramo : tramosDelCircuito ) {
+			result= result + tramo.getPrecio();
+		}
+		return result;
+	}
+
 	
 	
 }
