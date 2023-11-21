@@ -1,10 +1,21 @@
 package ar.edu.unq.poo2.Servicio;
 
-public class ServicioPesado extends Servicio{
+import ar.edu.unq.poo2.Container.Container;
 
-	public ServicioPesado(double precioDeServicio) {
-		super(precioDeServicio);
+public class ServicioPesado extends Servicio{
+	
+
+	public ServicioPesado(double precioDeServicio, Container container) {
+		super(precioDeServicio, container);
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public double calcularPrecioDelServicio() {
+		
+		return this.getPrecioDeServicio();
+	}
+
+	
 
 }

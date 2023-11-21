@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorLogico;
-import ar.edu.unq.poo2.BuscadorDeViajes.IBuscadorViajes;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 
 public class BuscadorAnd extends BuscadorLogico {

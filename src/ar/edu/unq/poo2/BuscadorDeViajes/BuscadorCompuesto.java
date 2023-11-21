@@ -3,9 +3,6 @@ package ar.edu.unq.poo2.BuscadorDeViajes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import ar.edu.unq.po2.BuscadorDeMuestras.IBuscadorMuestras;
-import ar.edu.unq.po2.Muestra.Muestra;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 
 public class BuscadorCompuesto implements IBuscadorViajes {

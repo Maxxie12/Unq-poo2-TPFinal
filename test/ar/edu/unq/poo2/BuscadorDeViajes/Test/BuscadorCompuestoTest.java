@@ -2,7 +2,6 @@ package ar.edu.unq.poo2.BuscadorDeViajes.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,16 +14,22 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorAnd;
+import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorCompuesto;
 import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorFechaDeLlegada;
+import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorFechaDeSalida;
 import ar.edu.unq.poo2.BuscadorDeViajes.BuscadorPuertoDestino;
+import ar.edu.unq.poo2.BuscadorDeViajes.IBuscadorViajes;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 
-class BuscadorAndTest {
-
+public class BuscadorCompuestoTest {
+	
 	List<Viaje> viajesAFiltrar = new ArrayList<Viaje>();
-	BuscadorAnd					 buscadorAnd;
+	List<IBuscadorViajes> buscadoresDeViajes = new ArrayList<IBuscadorViajes>();
+	BuscadorCompuesto 			 buscadorCompuesto;
 	BuscadorPuertoDestino 		 buscadorPuertoDestino;
 	BuscadorFechaDeLlegada		 buscadorFechaDeLlegada;
+	BuscadorFechaDeSalida		 buscadorFechaDeSalida;
+	BuscadorAnd					 buscadorAnd;
 	String						 puertoDestino;
 	LocalDate					 fechaDeLlegada;
 	
@@ -41,9 +46,12 @@ class BuscadorAndTest {
 	
 	@BeforeEach
 	void setUp() {
-		buscadorPuertoDestino = new BuscadorPuertoDestino();
+		buscadorPuertoDestino  = new BuscadorPuertoDestino();
 		buscadorFechaDeLlegada = new BuscadorFechaDeLlegada();
-		buscadorAnd = new BuscadorAnd(buscadorPuertoDestino, buscadorFechaDeLlegada);
+		buscadorFechaDeSalida  = new BuscadorFechaDeSalida();
+		buscadorAnd 		   = new BuscadorAnd(buscadorPuertoDestino, buscadorFechaDeLlegada);
+		buscadorCompuesto 	   = new BuscadorCompuesto();
+		
 		viajesAFiltrar = new ArrayList<>();
 
 	    
@@ -60,6 +68,13 @@ class BuscadorAndTest {
 		viajesAFiltrar.add(viaje2);
 		viajesAFiltrar.add(viaje3);
 		
+		buscadorCompuesto.addBuscador(this.buscadorFechaDeSalida);
+		buscadorCompuesto.addBuscador(this.buscadorAnd);
+		
+		
+		
+		
+		
 	
 	}
 	
@@ -67,7 +82,7 @@ class BuscadorAndTest {
 	void buscadorAndNoContiene() {
 		buscadorPuertoDestino.setPuertoABuscar("MarDelPlata");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 20));
-		assertFalse(buscadorAnd.filtrar(viajesAFiltrar).contains(viaje1));
+		assertFalse(buscadorCompuesto.filtrar(viajesAFiltrar).contains(viaje1));
 		
 		
 	}
@@ -76,11 +91,8 @@ class BuscadorAndTest {
 	void buscadorAnd() {
 		buscadorPuertoDestino.setPuertoABuscar("Cordoba");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 12, 24));
-		assertTrue(buscadorAnd.filtrar(viajesAFiltrar).contains(viaje3));
+		assertTrue(buscadorCompuesto.filtrar(viajesAFiltrar).contains(viaje3));
 	}
 	
 
 }
-
-
-
