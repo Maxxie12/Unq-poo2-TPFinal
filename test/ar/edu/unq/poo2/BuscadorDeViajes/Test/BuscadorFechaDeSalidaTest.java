@@ -52,23 +52,19 @@ public class BuscadorFechaDeSalidaTest {
 	@Test
 	public void testFiltrarBuscadorDeFechaDeSalida() {
 		buscadorFechaDeSalida.setfechaDeSalida((LocalDate.of(2024, 12, 10)));
-		 List<Viaje> resultado = buscadorFechaDeSalida.filtrar(viajesAFiltrar);
-		    assertEquals(2, resultado.size());
-
-	
-	}
+		assertEquals(2, buscadorFechaDeSalida.filtrar(viajesAFiltrar).size());
+    }
 	@Test
 	public void noContieneViaje1() {
 		buscadorFechaDeSalida.setfechaDeSalida((LocalDate.of(2024, 11, 20)));
-		List<Viaje> resultado = buscadorFechaDeSalida.filtrar(viajesAFiltrar);
-			assertFalse(resultado.contains(viaje1));
+		 
+		assertFalse(buscadorFechaDeSalida.filtrar(viajesAFiltrar).contains(viaje1));
 		
 	}
 	@Test
 	public void ContieneViaje3() {
 		buscadorFechaDeSalida.setfechaDeSalida(LocalDate.of(2024, 12, 24));
-		List<Viaje> resultado = buscadorFechaDeSalida.filtrar(viajesAFiltrar);
-		assertTrue(resultado.contains(viaje3));
+		assertTrue(buscadorFechaDeSalida.filtrar(viajesAFiltrar).contains(viaje3));
 		
 	}
 

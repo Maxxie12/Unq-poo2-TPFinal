@@ -70,16 +70,12 @@ public class BuscadorCompuestoTest {
 		
 		buscadorCompuesto.addBuscador(this.buscadorFechaDeSalida);
 		buscadorCompuesto.addBuscador(this.buscadorAnd);
-		
-		
-		
-		
-		
+							
 	
 	}
 	
 	@Test
-	void buscadorAndNoContiene() {
+	void buscadorCompuestoNoContiene() {
 		buscadorPuertoDestino.setPuertoABuscar("MarDelPlata");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 20));
 		assertFalse(buscadorCompuesto.filtrar(viajesAFiltrar).contains(viaje1));
