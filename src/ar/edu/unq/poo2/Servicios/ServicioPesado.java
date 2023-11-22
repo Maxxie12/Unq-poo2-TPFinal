@@ -1,4 +1,4 @@
-package ar.edu.unq.poo2.Servicio;
+package ar.edu.unq.poo2.Servicios;
 
 public class ServicioPesado implements Servicio{
 	

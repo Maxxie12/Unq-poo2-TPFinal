@@ -1,4 +1,4 @@
-package ar.edu.unq.poo2.Servicio;
+package ar.edu.unq.poo2.Servicios;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +22,18 @@ public class ServicioAlmacenamientoExcedente implements Servicio{
 	public double calcularPrecioDelServicio() {
 		
 		return (ChronoUnit.DAYS.between(this.fechaDeRetirada, this.fechaEnQueSeRetiro) * this.costoDeAlmacenamientoPorDia);
+	}
+
+	public LocalDate getFechaDeRetirada() {
+		return fechaDeRetirada;
+	}
+
+	public LocalDate getFechaEnQueSeRetiro() {
+		return fechaEnQueSeRetiro;
+	}
+
+	public double getCostoDeAlmacenamientoPorDia() {
+		return costoDeAlmacenamientoPorDia;
 	}
 	
 	
