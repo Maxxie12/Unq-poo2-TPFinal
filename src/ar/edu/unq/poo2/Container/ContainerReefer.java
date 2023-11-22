@@ -9,7 +9,7 @@ public class ContainerReefer extends Container{
 		this.consumo = consumo;
 	}
 	
-	public double getConsumo() {
+	public double getConsumoPorHora() {
 		return this.consumo;
 	}
 	

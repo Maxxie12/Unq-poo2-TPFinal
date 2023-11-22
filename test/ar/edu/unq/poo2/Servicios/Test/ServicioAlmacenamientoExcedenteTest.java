@@ -26,6 +26,8 @@ public class ServicioAlmacenamientoExcedenteTest {
 	   servicioAlmacenamientoExcedente = new ServicioAlmacenamientoExcedente(fechaDeRetirada, fechaEnQueSeRetiro, costoDeAlmacenamientoPorDia);
 	   
 	   when(servicioAlmacenamientoExcedente.getFechaDeRetirada()).thenReturn(LocalDate.of(2024, 12, 24));
+	   when(servicioAlmacenamientoExcedente.getFechaEnQueSeRetiro()).thenReturn(LocalDate.of(2024, 12, 31));
+	   when(servicioAlmacenamientoExcedente.getCostoDeAlmacenamientoPorDia()).thenReturn((double) 1000);
 	   
 	    }
    

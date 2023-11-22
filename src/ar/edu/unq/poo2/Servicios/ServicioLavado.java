@@ -32,6 +32,24 @@ public class ServicioLavado implements Servicio{
 			return this.container.getCapacidad()*10;
 		}
 
+
+
+		public double getPrecioDelServicio() {
+			return precioDelServicio;
+		}
+
+
+
+		public Container getContainer() {
+			return container;
+		}
+
+
+
+		public void setContainer(Container container) {
+			this.container = container;
+		}
+
 	        
 }
 

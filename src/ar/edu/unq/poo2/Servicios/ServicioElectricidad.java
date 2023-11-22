@@ -23,7 +23,22 @@ public class ServicioElectricidad implements Servicio {
 	@Override
 	public double calcularPrecioDelServicio() {
 		
-		return (ChronoUnit.HOURS.between(this.inicioDelServicio, this.finalDelServicio) * this.containerReefer.getConsumo());
+		return (ChronoUnit.HOURS.between(this.inicioDelServicio, this.finalDelServicio) * this.containerReefer.getConsumoPorHora());
+	}
+
+
+	public LocalDateTime getInicioDelServicio() {
+		return inicioDelServicio;
+	}
+
+
+	public LocalDateTime getFinalDelServicio() {
+		return finalDelServicio;
+	}
+
+
+	public ContainerReefer getContainerReefer() {
+		return containerReefer;
 	}
 
 	
