@@ -6,17 +6,16 @@ import java.time.temporal.ChronoUnit;
 import ar.edu.unq.poo2.Container.Container;
 import ar.edu.unq.poo2.Container.ContainerReefer;
 
-public class ServicioElectricidad extends Servicio {
+public class ServicioElectricidad implements Servicio {
 
-	private LocalDateTime inicioDelServicio;
-	private LocalDateTime finalDelServicio;
+	private LocalDateTime 	inicioDelServicio;
+	private LocalDateTime 	finalDelServicio;
+	private ContainerReefer	containerReefer;
 	
-	
-	public ServicioElectricidad(double precioDeServicio, Container container, LocalDateTime inicioDelServicio, LocalDateTime finalDelServicio) {
-		super(precioDeServicio, container);
-		if(!container.getClass().equals(ContainerReefer.class)) {throw new IllegalArgumentException("No es un container Reefer.");}
+	public ServicioElectricidad(LocalDateTime inicioDelServicio, LocalDateTime finalDelServicio, ContainerReefer containerReefer) {
 		this.inicioDelServicio = inicioDelServicio;
 		this.finalDelServicio  = finalDelServicio;
+		this.containerReefer   = containerReefer;
 		 
 	}
 
@@ -24,7 +23,7 @@ public class ServicioElectricidad extends Servicio {
 	@Override
 	public double calcularPrecioDelServicio() {
 		
-		return (ChronoUnit.HOURS.between(this.inicioDelServicio, this.finalDelServicio) * this.getContainer().get());
+		return (ChronoUnit.HOURS.between(this.inicioDelServicio, this.finalDelServicio) * this.containerReefer.getConsumo());
 	}
 
 	

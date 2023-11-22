@@ -5,24 +5,23 @@ import java.time.temporal.ChronoUnit;
 
 import ar.edu.unq.poo2.Container.Container;
 
-public class ServicioAlmacenamientoExcedente extends Servicio{
-
-	private LocalDate fechaInicio;
-	private LocalDate fechaFinal;
+public class ServicioAlmacenamientoExcedente implements Servicio{
+ 
+	private LocalDate fechaDeRetirada;
+	private LocalDate fechaEnQueSeRetiro;
 	private double	  costoDeAlmacenamientoPorDia;
 	
-	public ServicioAlmacenamientoExcedente(double precioDeServicio, Container container,LocalDate fechaInicio, LocalDate fechaFinal, double costoDeAlmacenamientoPorDia) {
-		super(precioDeServicio, container);
-		this.fechaInicio = fechaInicio;
-		this.fechaFinal  = fechaFinal;
+	
+	public ServicioAlmacenamientoExcedente(LocalDate fechaDeRetirada, LocalDate fechaEnQueSeRetiro, double costoDeAlmacenamientoPorDia) {
+		this.fechaDeRetirada 	 = fechaDeRetirada;
+		this.fechaEnQueSeRetiro  = fechaEnQueSeRetiro;
 		this.costoDeAlmacenamientoPorDia = costoDeAlmacenamientoPorDia;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public double calcularPrecioDelServicio() {
 		
-		return (ChronoUnit.DAYS.between(this.fechaInicio, this.fechaFinal) * this.costoDeAlmacenamientoPorDia);
+		return (ChronoUnit.DAYS.between(this.fechaDeRetirada, this.fechaEnQueSeRetiro) * this.costoDeAlmacenamientoPorDia);
 	}
 	
 	
