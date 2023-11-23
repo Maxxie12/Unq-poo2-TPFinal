@@ -36,12 +36,11 @@ public class BuscadorFechaDeLlegadaTest {
 		public void setUp() {
 		 viajesAFiltrar = new ArrayList<>();
     	 buscadorFechaDeLlegada = new BuscadorFechaDeLlegada();
-		 LocalDate fechaDeLlegada = LocalDate.of(2024, 9, 1);
 		 
-		 when(viaje1.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(true);
-		 when(viaje2.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(false);
-		 when(viaje3.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(true);
-		 when(viaje4.llegaAUnPuertoEnEstaFecha(fechaDeLlegada)).thenReturn(false);
+		 when(viaje1.llegaAUnPuertoEnEstaFecha(LocalDate.of(2024, 9, 1))).thenReturn(true);
+		 when(viaje2.llegaAUnPuertoEnEstaFecha(LocalDate.of(2024, 10, 11))).thenReturn(false);
+		 when(viaje3.llegaAUnPuertoEnEstaFecha(LocalDate.of(2024, 11, 12))).thenReturn(true);
+		 when(viaje4.llegaAUnPuertoEnEstaFecha(LocalDate.of(2024, 11, 12))).thenReturn(true);
 
 		 viajesAFiltrar.add(viaje1);
 		 viajesAFiltrar.add(viaje2);
@@ -52,21 +51,21 @@ public class BuscadorFechaDeLlegadaTest {
 	
 	@Test
 	public void testFiltrarBuscadorDeFechaLlegada() {
-		 List<Viaje> resultado = buscadorFechaDeLlegada.filtrar(viajesAFiltrar);
-		    assertEquals(2, resultado.size());
+		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 12));
+		assertEquals(2, buscadorFechaDeLlegada.filtrar(viajesAFiltrar).size());
 
 	
 	}
 	@Test
 	public void noContieneViaje2() {
-		List<Viaje> resultado = buscadorFechaDeLlegada.filtrar(viajesAFiltrar);
-			assertFalse(resultado.contains(viaje2));
+		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 10, 11));
+		assertFalse(buscadorFechaDeLlegada.filtrar(viajesAFiltrar).contains(viaje2));
 		
 	}
 	@Test
 	public void ContieneViaje1() {
-		List<Viaje> resultado = buscadorFechaDeLlegada.filtrar(viajesAFiltrar);
-		assertTrue(resultado.contains(viaje1));
+		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 9, 1));
+		assertTrue(buscadorFechaDeLlegada.filtrar(viajesAFiltrar).contains(viaje1));
 		
 	}
 

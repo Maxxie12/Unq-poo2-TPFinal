@@ -51,9 +51,9 @@ public class BuscadorPuertoDestinoTest {
 		
 	}
 	@Test
-	public void ContieneViaje1() {
+	public void ContieneViaje2() {
 		buscadorPuertoDestino.setPuertoABuscar("Ushuaia");
-		assertTrue(buscadorPuertoDestino.filtrar(viajesAFiltrar).contains(viaje3));
+		assertTrue(buscadorPuertoDestino.filtrar(viajesAFiltrar).contains(viaje2));
 
 	}
 	

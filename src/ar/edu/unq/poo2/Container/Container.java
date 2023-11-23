@@ -37,6 +37,9 @@ public abstract class Container {
  		this.tipoContainer = tipoContainer;
 		this.id 		   = id;
 	}
+	public void setCapacidad(double capacidad) {
+		this.capacidad = capacidad;
+	}
 	
 	
 }

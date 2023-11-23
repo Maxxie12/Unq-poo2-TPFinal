@@ -64,7 +64,7 @@ class BuscadorAndTest {
 	}
 	
 	@Test
-	void buscadorAndNoContiene() {
+	void buscadorAndNoContieneMarDelPlata() {
 		buscadorPuertoDestino.setPuertoABuscar("MarDelPlata");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 20));
 		assertFalse(buscadorAnd.filtrar(viajesAFiltrar).contains(viaje1));
@@ -73,7 +73,7 @@ class BuscadorAndTest {
 	}
 	
 	@Test
-	void buscadorAnd() {
+	void buscadorAndContieneCordoba() {
 		buscadorPuertoDestino.setPuertoABuscar("Cordoba");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 12, 24));
 		assertTrue(buscadorAnd.filtrar(viajesAFiltrar).contains(viaje3));

@@ -3,7 +3,7 @@ package ar.edu.unq.poo2.BuscadorDeViajes;
 import java.util.List;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 
-public abstract class BuscadorLogico  {
+public abstract class BuscadorLogico implements IBuscadorViajes  {
 		
 	private IBuscadorViajes filtroBusqueda1;
 	private IBuscadorViajes filtroBusqueda2;

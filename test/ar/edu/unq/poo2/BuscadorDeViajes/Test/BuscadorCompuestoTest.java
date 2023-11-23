@@ -22,7 +22,7 @@ import ar.edu.unq.poo2.BuscadorDeViajes.IBuscadorViajes;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 
 public class BuscadorCompuestoTest {
-	
+
 	List<Viaje> viajesAFiltrar = new ArrayList<Viaje>();
 	List<IBuscadorViajes> buscadoresDeViajes = new ArrayList<IBuscadorViajes>();
 	BuscadorCompuesto 			 buscadorCompuesto;
@@ -70,16 +70,12 @@ public class BuscadorCompuestoTest {
 		
 		buscadorCompuesto.addBuscador(this.buscadorFechaDeSalida);
 		buscadorCompuesto.addBuscador(this.buscadorAnd);
-		
-		
-		
-		
-		
+							
 	
 	}
 	
 	@Test
-	void buscadorAndNoContiene() {
+	void buscadorCompuestoNoContiene() {
 		buscadorPuertoDestino.setPuertoABuscar("MarDelPlata");
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 11, 20));
 		assertFalse(buscadorCompuesto.filtrar(viajesAFiltrar).contains(viaje1));
@@ -93,6 +89,5 @@ public class BuscadorCompuestoTest {
 		buscadorFechaDeLlegada.setfechaDeLlegada(LocalDate.of(2024, 12, 24));
 		assertTrue(buscadorCompuesto.filtrar(viajesAFiltrar).contains(viaje3));
 	}
-	
 
 }
