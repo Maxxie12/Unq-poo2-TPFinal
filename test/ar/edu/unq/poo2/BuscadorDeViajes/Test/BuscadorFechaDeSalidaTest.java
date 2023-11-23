@@ -45,6 +45,7 @@ public class BuscadorFechaDeSalidaTest {
 		 viajesAFiltrar.add(viaje1);
 		 viajesAFiltrar.add(viaje2);
 		 viajesAFiltrar.add(viaje3);
+		 viajesAFiltrar.add(viaje4);
 		 viajesAFiltrar.add(viaje5);
 
 	}
