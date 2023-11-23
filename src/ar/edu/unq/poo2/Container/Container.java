@@ -6,7 +6,6 @@ public abstract class Container {
 	private double largo;
 	private double altura;
 	private double capacidad;
-	private String tipoContainer;
 	private int	   id;
 	
 	
@@ -22,9 +21,7 @@ public abstract class Container {
 	public double getCapacidad() {
 		return capacidad;
 	}
-	public String getTipoContainer() {
-		return tipoContainer;
-	}
+	
 	public int getId() {
 		return id;
 	}
@@ -35,9 +32,6 @@ public abstract class Container {
 		this.altura 	   = altura;
 		this.capacidad     = capacidad;
 		this.id 		   = id;
-	}
-	public void setCapacidad(double capacidad) {
-		this.capacidad = capacidad;
 	}
 	
 	

@@ -1,7 +1,5 @@
 package ar.edu.unq.poo2.Terminal;
 
-import ar.edu.unq.poo2.LineaNaviera.Buque;
-
 public abstract class Terminal {
 	private String nombreDeLaTermianl;
 	
@@ -14,11 +12,7 @@ public abstract class Terminal {
 		return this.nombreDeLaTermianl;
 	}
 	
-	public void inminenteArriboDelBuque(Buque buque) {	
-	}
 	
-	public void elBuqueAbandonoLasCercanias(Buque buque) {
-	}
 
 	
 

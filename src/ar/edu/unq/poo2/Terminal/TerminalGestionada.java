@@ -3,6 +3,7 @@ package ar.edu.unq.poo2.Terminal;
 import java.util.List;
 
 import ar.edu.unq.poo2.BuscadorDeViajes.IBuscadorViajes;
+import ar.edu.unq.poo2.LineaNaviera.Buque;
 import ar.edu.unq.poo2.LineaNaviera.LineaNaviera;
 import ar.edu.unq.poo2.Orden.Orden;
 import ar.unq.edu.poo2.Common.Cliente;
@@ -14,8 +15,7 @@ public class TerminalGestionada extends Terminal {
 	private List<LineaNaviera>         lineasNavierasRegistradas;
 	private List<EmpresaTransportista> empresasRegistradas;
 	private List<Cliente> 			   clientesRegistrados;
-	private List<Orden>				   ordenesDeImportacion;
-	private List<Orden>				   ordenesDeExportacion;
+	private List<Orden>				   ordenesRegistradas;
 	private List<Orden>				   ordenesFinalizadas;
 	private IBuscadorViajes			   motorDeLaTerminal;
 	
@@ -36,12 +36,8 @@ public class TerminalGestionada extends Terminal {
 		return clientesRegistrados;
 	}
 
-	public List<Orden> getOrdenesDeImportacion() {
-		return ordenesDeImportacion;
-	}
-
-	public List<Orden> getOrdenesDeExportacion() {
-		return ordenesDeExportacion;
+	public List<Orden> getOrdenesRegistradas() {
+		return ordenesRegistradas;
 	}
 
 	public List<Orden> getOrdenesFinalizadas() {
@@ -50,5 +46,11 @@ public class TerminalGestionada extends Terminal {
 
 	public IBuscadorViajes getMotorDeLaTerminal() {
 		return motorDeLaTerminal;
+	}
+	
+	public void inminenteArriboDelBuque(Buque buque) {	
+	}
+	
+	public void elBuqueAbandonoLasCercanias(Buque buque) {
 	}
 }

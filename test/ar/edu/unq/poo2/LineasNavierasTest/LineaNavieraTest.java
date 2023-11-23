@@ -176,6 +176,22 @@ class LineaNavieraTest {
 	
 	@Test
 	void testUnLineaNavieraPuedeDevolverLaTerminalGestionda() {
-		assertEquals(lineaTest.getTerminal(), terminalGestionda);
+		assertEquals(lineaTest.getTerminalGestionada(), terminalGestionda);
 	}
+	
+	@Test
+	void testUnLineaNavieraPuedeRemoverRegistros() {
+		assertEquals(lineaTest.getBuquesRegistrados().size(), 2); 
+		assertEquals(lineaTest.getCircuitosRegistrados().size(), 2);
+		assertEquals(lineaTest.getViajesDisponibles().size(), 1);		
+		lineaTest.removeBuque(buqueRegistrado);
+		lineaTest.removeCircuito(circuitoValido);
+		lineaTest.removeViaje(viajeQueSePuedeRegistrar);
+		assertEquals(lineaTest.getBuquesRegistrados().size(), 1); 
+		assertEquals(lineaTest.getCircuitosRegistrados().size(), 1);
+		assertEquals(lineaTest.getViajesDisponibles().size(), 0);
+	}
+		
+	
+	
 }

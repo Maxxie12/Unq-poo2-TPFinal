@@ -14,9 +14,9 @@ public class LineaNaviera {
 	private List<Circuito> circuitosRegistrados;
 	private List<Buque> buquesRegistrados;
 	private List<Viaje> viajesDisponibles;
-	private Terminal terminalGestionada;
+	private TerminalGestionada terminalGestionada;
 	
-	public LineaNaviera(String nombre,List<Circuito> circuitos ,List<Buque> buques,List<Viaje> viajes,Terminal terminal) {
+	public LineaNaviera(String nombre,List<Circuito> circuitos ,List<Buque> buques,List<Viaje> viajes,TerminalGestionada terminal) {
 		
 		
 		this.nombre 			  = nombre;
@@ -129,8 +129,21 @@ public class LineaNaviera {
 		return this.viajesDisponibles;
 	}
 
-	public Terminal getTerminal() {
+	public TerminalGestionada getTerminalGestionada() {
 		return this.terminalGestionada;
+	}
+	
+	public void removeBuque(Buque b) {
+		b.setLineaNaviera(null);
+		this.buquesRegistrados.remove(b);
+	}
+	
+	public void removeCircuito(Circuito c) {
+		this.circuitosRegistrados.remove(c);
+	}
+	
+	public void removeViaje(Viaje v) {
+		this.viajesDisponibles.remove(v);
 	}
 	
 }

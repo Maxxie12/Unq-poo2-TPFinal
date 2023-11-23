@@ -206,8 +206,25 @@ class CircuitoTest {
 			assertEquals(circuitoTest.getTiempoTotalEnDias(), 60);
 		}
 	
+	@Test
+	void testUnCircuitoSabeElCostoALaTerminalDestino(){
+		assertEquals(circuitoTest.getCostoADestino(terminalSegundaFinal), 55);
+		assertEquals(circuitoTest.getCostoADestino(terminalFinalTemporal), 100);
+	}
+	
+	@Test
+	void testUnCircuitoSabeElTiempoEnDiasALaTerminalDestino(){
+		assertEquals(circuitoTest.getDiasHastaTerminal(terminalSegundaFinal), 30);
+		assertEquals(circuitoTest.getDiasHastaTerminal(terminalFinalTemporal), 60);
+	}
+	
+	@Test
+	void testUnCircuitoSabeLaCantidadDeTerminalesALaTerminalDestino(){
+		assertEquals(circuitoTest.getTramosDelCircuitoHastaTerminal(terminalSegundaFinal), 2);
+		assertEquals(circuitoTest.getTramosDelCircuitoHastaTerminal(terminalFinalTemporal), 3);
+	}
 	
 	
 	
-	
+	 
 }

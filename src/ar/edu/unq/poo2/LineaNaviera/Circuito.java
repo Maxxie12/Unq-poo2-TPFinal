@@ -142,22 +142,13 @@ public class Circuito {
 				   .mapToDouble(t -> t.getPrecio())
 				   .sum();
 	}
-	public double getCostoADestino(Terminal terminalDestino) {
-		double costoHastaLaTerminal = 0;
-        
+	public double getCostoADestino(Terminal terminalDestino) {	      
         noTieneEsTerminalExepcion(terminalDestino);
         
-        for (Tramo tramo : this.tramosDelCircuito) {
-        	
-            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
-                return costoHastaLaTerminal = costoHastaLaTerminal + (tramo.getPrecio());
-            }
-            	
-            costoHastaLaTerminal = costoHastaLaTerminal + (tramo.getPrecio());
-            
-            
-        }
-		return costoHastaLaTerminal; 
+        return tramosDelCircuito.stream()
+                .takeWhile(tramo -> !tramo.getTerminalInicio().getNombre().equals(terminalDestino.getNombre()))
+                .mapToDouble(Tramo::getPrecio)
+                .sum();
 
         
 	}
@@ -181,46 +172,24 @@ public class Circuito {
 	}
 
 	public int getDiasHastaTerminal(Terminal terminalDestino) {
-		int diasHastaTerminal = 0;
-        
         noTieneEsTerminalExepcion(terminalDestino);
         
-        for (Tramo tramo : this.tramosDelCircuito) {
-        	
-            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
-                return diasHastaTerminal = diasHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
-            }
-            	
-            diasHastaTerminal = diasHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
-            
-            
-        }
-		return diasHastaTerminal; 
+        return tramosDelCircuito.stream()
+                .takeWhile(tramo -> !tramo.getTerminalInicio().getNombre().equals(terminalDestino.getNombre()))
+                .mapToInt(Tramo::getTiempoQueTardaEnRecorrer)
+                .sum();
 
         
 	}
 
 	public int getTramosDelCircuitoHastaTerminal(Terminal terminalDestino) {
 		
-		int tramosHastaTerminal = 1;
-        
-        noTieneEsTerminalExepcion(terminalDestino);
-        
-        for (Tramo tramo : this.tramosDelCircuito) {
-        	
-            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
-                return tramosHastaTerminal = tramosHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
-            }
-            	
-            tramosHastaTerminal = tramosHastaTerminal + 1;
-            
-        }
-		return tramosHastaTerminal; 
-	}
-	
-	
-	
-	
+	        noTieneEsTerminalExepcion(terminalDestino);
+
+	        return (int) tramosDelCircuito.stream()
+	                .takeWhile(tramo -> !tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre()))
+	                .count() + 1;
+	    }
 	
 }
 

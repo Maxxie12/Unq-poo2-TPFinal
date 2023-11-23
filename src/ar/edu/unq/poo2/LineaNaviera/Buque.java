@@ -49,12 +49,12 @@ public class Buque {
 	
 		
 	public void avisarTerminalDeInminenteArribo() {
-		this.lineaNavieraALaCualEstaRegistrado.getTerminal().inminenteArriboDelBuque(this);
+		this.lineaNavieraALaCualEstaRegistrado.getTerminalGestionada().inminenteArriboDelBuque(this);
 		
 	}
 	
 	public void avisarDepart() {
-		lineaNavieraALaCualEstaRegistrado.getTerminal().elBuqueAbandonoLasCercanias(this);	
+		lineaNavieraALaCualEstaRegistrado.getTerminalGestionada().elBuqueAbandonoLasCercanias(this);	
 	}
 
 	

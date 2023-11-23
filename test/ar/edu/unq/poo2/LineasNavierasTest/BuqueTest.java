@@ -34,7 +34,7 @@ class BuqueTest {
 		terminalMock             = mock(TerminalGestionada.class);
 		
 		//mockeo 
-		when(lineaNavieraARegistrarse.getTerminal()).thenReturn(terminalMock);
+		when(lineaNavieraARegistrarse.getTerminalGestionada()).thenReturn(terminalMock);
 		
 		//Creo el buque
 		
