@@ -9,13 +9,12 @@ import ar.edu.unq.poo2.Terminal.TerminalGestionada;
 public class MenorCantParadas implements IMejorCircuito{
 
 	@Override
-	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino,
-			TerminalGestionada terminalOrigen) {
+	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino) {
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
 		
 		
 		for(Circuito circuito : circuitosAFiltrar) {
-			if(circuito.getTramosDelCircuito().size()< mejorCircuito.getTramosDelCircuito().size()){
+			if(circuito.getTramosDelCircuitoHastaTerminal(terminalDestino) < mejorCircuito.getTramosDelCircuitoHastaTerminal(terminalDestino)){
 				mejorCircuito = circuito;
 			}
 		}

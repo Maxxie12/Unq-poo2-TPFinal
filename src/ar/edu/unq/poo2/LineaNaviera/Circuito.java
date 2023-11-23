@@ -199,6 +199,24 @@ public class Circuito {
 
         
 	}
+
+	public int getTramosDelCircuitoHastaTerminal(Terminal terminalDestino) {
+		
+		int tramosHastaTerminal = 1;
+        
+        noTieneEsTerminalExepcion(terminalDestino);
+        
+        for (Tramo tramo : this.tramosDelCircuito) {
+        	
+            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
+                return tramosHastaTerminal = tramosHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
+            }
+            	
+            tramosHastaTerminal = tramosHastaTerminal + 1;
+            
+        }
+		return tramosHastaTerminal; 
+	}
 	
 	
 	

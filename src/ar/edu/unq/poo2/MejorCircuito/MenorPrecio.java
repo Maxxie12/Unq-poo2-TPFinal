@@ -10,8 +10,7 @@ import ar.edu.unq.poo2.Terminal.TerminalGestionada;
 public class MenorPrecio implements IMejorCircuito{
 
 	@Override
-	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino,
-			TerminalGestionada terminalOrigen) {
+	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino) {
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
 		
 		for(int i=0;i<circuitosAFiltrar.size();i++) {
