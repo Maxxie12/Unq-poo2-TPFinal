@@ -45,11 +45,6 @@ public class ServicioLavado implements Servicio{
 		}
 
 
-
-		public void setContainer(Container container) {
-			this.container = container;
-		}
-
 	        
 }
 

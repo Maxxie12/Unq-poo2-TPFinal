@@ -14,27 +14,20 @@ import org.mockito.Mock;
 import ar.edu.unq.poo2.Servicios.ServicioAlmacenamientoExcedente;
 
 public class ServicioAlmacenamientoExcedenteTest {
-	LocalDate						fechaDeRetirada;
-	LocalDate						fechaEnQueSeRetiro;
-	double							costoDeAlmacenamientoPorDia;
+	ServicioAlmacenamientoExcedente servicioAlmacenamientoExcedente;
 	
-   @Mock
-   ServicioAlmacenamientoExcedente servicioAlmacenamientoExcedente = mock(ServicioAlmacenamientoExcedente.class);
+ 
    
    @BeforeEach
    void setUp() {
-	   servicioAlmacenamientoExcedente = new ServicioAlmacenamientoExcedente(fechaDeRetirada, fechaEnQueSeRetiro, costoDeAlmacenamientoPorDia);
-	   
-	   when(servicioAlmacenamientoExcedente.getFechaDeRetirada()).thenReturn(LocalDate.of(2024, 12, 24));
-	   when(servicioAlmacenamientoExcedente.getFechaEnQueSeRetiro()).thenReturn(LocalDate.of(2024, 12, 31));
-	   when(servicioAlmacenamientoExcedente.getCostoDeAlmacenamientoPorDia()).thenReturn((double) 1000);
+	   servicioAlmacenamientoExcedente = new ServicioAlmacenamientoExcedente(LocalDate.of(2024, 12, 24), (LocalDate.of(2024, 12, 31)), 1000.0);
 	   
 	    }
    
    
    @Test
    void calcularCostoAlmacenamientoTotal() {
-	   assertEquals(7000, servicioAlmacenamientoExcedente.calcularPrecioDelServicio());
+	   assertEquals(7000.0, servicioAlmacenamientoExcedente.calcularPrecioDelServicio());
    }
    
 }

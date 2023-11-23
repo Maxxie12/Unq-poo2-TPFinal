@@ -1,5 +1,6 @@
 package ar.edu.unq.poo2.Servicios.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,31 +16,26 @@ import ar.edu.unq.poo2.Servicios.ServicioElectricidad;
 
 public class ServicioElectricidadTest {
 	
-	private LocalDateTime 	inicioDelServicio;
-	private LocalDateTime 	finalDelServicio;
+
+	ServicioElectricidad servicioElectricidad; 
 	
 	
 	
 	@Mock
-	ServicioElectricidad servicioElectricidad = mock(ServicioElectricidad.class);
-	ContainerReefer		 containerReefer	  = mock(ContainerReefer.class);
+	ContainerReefer	 containerReefer = mock(ContainerReefer.class);
 
 
 	@BeforeEach
  void	setUp(){
-	ServicioElectricidad servicioElectricidad = new ServicioElectricidad(inicioDelServicio, finalDelServicio, containerReefer);
-	
-	
-	when(servicioElectricidad.getInicioDelServicio()).thenReturn(LocalDateTime.of(2023, 11, 15, 12, 0));
-	when(servicioElectricidad.getFinalDelServicio()).thenReturn(LocalDateTime.of(2023, 11, 16, 12, 0));
-    when(servicioElectricidad.getContainerReefer()).getConsumoPorHora().thenReturn(80);
+	servicioElectricidad = new ServicioElectricidad((LocalDateTime.of(2023, 11, 15, 12, 0)),(LocalDateTime.of(2023, 11, 16, 12, 0)), containerReefer);
+    when(containerReefer.getConsumoPorHora()).thenReturn(80.0);
 	   
 	}
 	
 	
 	@Test
-	void calcularCostoDeServicioDeElectricidad  {
-		assetEquals(1920, servicioElectricidad.calcularPrecioDelServicio());
+	void calcularCostoDeServicioDeElectricidad()  {
+		assertEquals(1920.0, servicioElectricidad.calcularPrecioDelServicio());
 	}
 	
 	

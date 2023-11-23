@@ -12,14 +12,13 @@ import ar.edu.unq.poo2.Servicios.ServicioLavado;
 import ar.edu.unq.poo2.Servicios.ServicioPesado;
 
 public class ServicioPesadoTest {
-	private double    precioDelServicio = 1000;
+	ServicioPesado	  servicioPesado; 
 	
-	   @Mock
-	   ServicioPesado servicioPesado = mock(ServicioPesado.class);
+	  
 	   
 	   @BeforeEach
 	   void setUp() {
-		   servicioPesado = new ServicioPesado(precioDelServicio); 
+		   servicioPesado = new ServicioPesado(1000.0); 
 		    }
 	   
 	   
