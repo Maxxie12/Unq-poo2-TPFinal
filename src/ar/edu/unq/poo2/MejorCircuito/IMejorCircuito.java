@@ -1,7 +1,6 @@
 package ar.edu.unq.poo2.MejorCircuito;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ar.edu.unq.poo2.LineaNaviera.Circuito;
 import ar.edu.unq.poo2.Terminal.Terminal;

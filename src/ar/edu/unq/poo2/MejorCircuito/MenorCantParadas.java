@@ -12,14 +12,17 @@ public class MenorCantParadas implements IMejorCircuito{
 	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino,
 			TerminalGestionada terminalOrigen) {
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
+		int cantDeParadas = 0;
 		
 		
-		for(Circuito circuito : circuitosAFiltrar) {
-			if(circuito.getTramosDelCircuito().size()< mejorCircuito.getTramosDelCircuito().size()){
-				mejorCircuito = circuito;
+		/*for(int i=0;i<circuitosAFiltrar.size();i++){
+			if(circuitosAFiltrar.get(i).getTerminalFinal()== terminalDestino) {
+				int cantDeParadas
 			}
+			
 		}
-		return mejorCircuito;
+		return mejorCircuito;}*/
+		return null;
 	}
 
-}
+}	
