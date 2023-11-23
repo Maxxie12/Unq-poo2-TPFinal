@@ -1,5 +1,6 @@
 package ar.edu.unq.poo2.Orden;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -11,20 +12,19 @@ import ar.unq.edu.poo2.Common.Cliente;
 import ar.unq.edu.poo2.Common.Conductor;
 
 public abstract class Orden {
-	private LocalDateTime fechaDeSalida;
-	private LocalDateTime fechaDeLlegada;
+	private LocalDate fechaDeSalida;
+	private LocalDate fechaDeLlegada;
 	private Cliente importador;
 	private Cliente exportador;
 	private Viaje viajeSeleccionado;
 	private ArrayList <Servicio> serviciosContratados = new ArrayList <Servicio>();
-	private Camion camionAsignado;
-	private Conductor conductorAsignado;
+
 	private Container container; 
+	private Turno turno;
 	
 	
-	public Orden(LocalDateTime fechaDeSalida, LocalDateTime fechaDeLlegada, Cliente importador, Cliente exportador,
-			Viaje viajeSeleccionado, ArrayList<Servicio> serviciosContratados, Camion camionAsignado,
-			Conductor conductorAsignado, Container container) {
+	public Orden(LocalDate fechaDeSalida, LocalDate fechaDeLlegada, Cliente importador, Cliente exportador,
+			Viaje viajeSeleccionado, ArrayList<Servicio> serviciosContratados, Container container, Turno turno) {
 		super();
 		this.fechaDeSalida = fechaDeSalida;
 		this.fechaDeLlegada = fechaDeLlegada;
@@ -32,19 +32,19 @@ public abstract class Orden {
 		this.exportador = exportador;
 		this.viajeSeleccionado = viajeSeleccionado;
 		this.serviciosContratados = serviciosContratados;
-		this.camionAsignado = camionAsignado;
-		this.conductorAsignado = conductorAsignado;
+	
 		this.container = container;
+		this.turno=turno;
 	}
 	
 
 
-	public LocalDateTime getFechaDeSalida() {
+	public LocalDate getFechaDeSalida() {
 		return fechaDeSalida;
 	}
 
 
-	public LocalDateTime getFechaDeLlegada() {
+	public LocalDate getFechaDeLlegada() {
 		return fechaDeLlegada;
 	}
 
@@ -69,17 +69,8 @@ public abstract class Orden {
 	}
 
 
-	public Camion getCamionAsignado() {
-		return camionAsignado;
-	}
-
-
-	public Conductor getConductorAsignado() {
-		return conductorAsignado;
-	}
-
 	public Container getContainer() {
 		return container;
 	}
-
+	public abstract void mandarEmailACliente(); 
 }

@@ -13,15 +13,13 @@ public class MenorPrecio implements IMejorCircuito{
 	public Circuito mejorCircuito(ArrayList<Circuito> circuitosAFiltrar, Terminal terminalDestino,
 			TerminalGestionada terminalOrigen) {
 		Circuito mejorCircuito = circuitosAFiltrar.get(0);
+		
 		for(int i=0;i<circuitosAFiltrar.size();i++) {
-			if(circuitosAFiltrar.get(i).getCostoTotal()<mejorCircuito.getCostoTotal()) {
+			if(circuitosAFiltrar.get(i).getCostoADestino(terminalDestino)<mejorCircuito.getCostoADestino(terminalDestino)) {
 				mejorCircuito=circuitosAFiltrar.get(i);
 			}
 		}
-		
 		return mejorCircuito;
-		
-		
 	}
 
 }

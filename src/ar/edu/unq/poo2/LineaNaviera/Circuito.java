@@ -142,6 +142,25 @@ public class Circuito {
 				   .mapToDouble(t -> t.getPrecio())
 				   .sum();
 	}
+	public double getCostoADestino(Terminal terminalDestino) {
+		double costoHastaLaTerminal = 0;
+        
+        noTieneEsTerminalExepcion(terminalDestino);
+        
+        for (Tramo tramo : this.tramosDelCircuito) {
+        	
+            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
+                return costoHastaLaTerminal = costoHastaLaTerminal + (tramo.getPrecio());
+            }
+            	
+            costoHastaLaTerminal = costoHastaLaTerminal + (tramo.getPrecio());
+            
+            
+        }
+		return costoHastaLaTerminal; 
+
+        
+	}
     
 	public int getTiempoTotalEnDias() {
 		return this.tramosDelCircuito.stream()
@@ -160,6 +179,28 @@ public class Circuito {
 	public List<Tramo> getTramosDelCircuito() {
 		return tramosDelCircuito;
 	}
+
+	public int getDiasHastaTerminal(Terminal terminalDestino) {
+		int diasHastaTerminal = 0;
+        
+        noTieneEsTerminalExepcion(terminalDestino);
+        
+        for (Tramo tramo : this.tramosDelCircuito) {
+        	
+            if (tramo.getTerminalDestino().getNombre().equals(terminalDestino.getNombre())) {
+                return diasHastaTerminal = diasHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
+            }
+            	
+            diasHastaTerminal = diasHastaTerminal + (tramo.getTiempoQueTardaEnRecorrer());
+            
+            
+        }
+		return diasHastaTerminal; 
+
+        
+	}
+	
+	
 	
 	
 	
