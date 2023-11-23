@@ -12,6 +12,11 @@ public class Turno {
 	private LocalDateTime hora;
 	
 	
+	public Turno(Camion camionEnLaOrden, Conductor conductorDeLaOrden, LocalDateTime hora) {
+		this.camionEnLaOrden = camionEnLaOrden;
+		this.conductorEnLaOrden = conductorDeLaOrden;
+		this.hora				= hora;
+	}
 	
 	public boolean verificarTurno(Camion camionQueLlego, Conductor conductorDelCamion, LocalDateTime horaQueLlego) {
 		return(this.camionEnLaOrden.equals(conductorDelCamion)&&this.conductorEnLaOrden.equals(conductorDelCamion)&&this.estaDentroDeLaTolerancia(this.hora,horaQueLlego ));
