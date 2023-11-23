@@ -22,9 +22,7 @@ public class BuscadorCompuesto implements IBuscadorViajes {
         buscadoresDeViajes.add(buscadorViajes);
     }
 
-    public void removeBuscador(IBuscadorViajes buscadorViajes ) {
-        buscadoresDeViajes.remove(buscadorViajes);
-    }
+
 
 
 }

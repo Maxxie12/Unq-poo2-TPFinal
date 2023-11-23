@@ -24,17 +24,7 @@ public class ServicioAlmacenamientoExcedente implements Servicio{
 		return (ChronoUnit.DAYS.between(this.fechaDeRetirada, this.fechaEnQueSeRetiro) * this.costoDeAlmacenamientoPorDia);
 	}
 
-	public LocalDate getFechaDeRetirada() {
-		return fechaDeRetirada;
-	}
 
-	public LocalDate getFechaEnQueSeRetiro() {
-		return fechaEnQueSeRetiro;
-	}
-
-	public double getCostoDeAlmacenamientoPorDia() {
-		return costoDeAlmacenamientoPorDia;
-	}
 	
 	
 	

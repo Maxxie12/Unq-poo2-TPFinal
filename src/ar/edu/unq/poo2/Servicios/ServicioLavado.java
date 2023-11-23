@@ -34,15 +34,7 @@ public class ServicioLavado implements Servicio{
 
 
 
-		public double getPrecioDelServicio() {
-			return precioDelServicio;
-		}
 
-
-
-		public Container getContainer() {
-			return container;
-		}
 
 
 	        

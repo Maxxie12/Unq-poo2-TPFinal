@@ -27,19 +27,7 @@ public class ServicioElectricidad implements Servicio {
 	}
 
 
-	public LocalDateTime getInicioDelServicio() {
-		return inicioDelServicio;
-	}
 
-
-	public LocalDateTime getFinalDelServicio() {
-		return finalDelServicio;
-	}
-
-
-	public ContainerReefer getContainerReefer() {
-		return containerReefer;
-	}
 
 	
 
