@@ -29,12 +29,11 @@ public abstract class Container {
 		return id;
 	}
 
-	public Container(double ancho, double largo, double altura, double capacidad, String tipoContainer, int id) {
+	public Container(double ancho, double largo, double altura, double capacidad, int id) {
 		this.ancho		   = ancho;
 		this.largo	       = largo;
 		this.altura 	   = altura;
 		this.capacidad     = capacidad;
- 		this.tipoContainer = tipoContainer;
 		this.id 		   = id;
 	}
 	public void setCapacidad(double capacidad) {

@@ -1,9 +1,9 @@
-package ar.edu.unq.poo2.Container;
+import ar.edu.unq.poo2.Container.Container;
 
 public class ContainerTanque extends Container{
 
-	public ContainerTanque(double ancho, double largo, double altura, String tipoContainer, int id) {
-		super(ancho, largo, altura, tipoContainer, id);
+	public ContainerTanque(double ancho, double largo, double altura,double capacidad,  int id) {
+		super(ancho, largo, altura, capacidad,id);
 		// TODO Auto-generated constructor stub
 	}
 
