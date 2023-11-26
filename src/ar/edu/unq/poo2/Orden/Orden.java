@@ -3,6 +3,7 @@ package ar.edu.unq.poo2.Orden;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.edu.unq.poo2.Container.Container;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
@@ -17,14 +18,14 @@ public abstract class Orden {
 	private Cliente importador;
 	private Cliente exportador;
 	private Viaje viajeSeleccionado;
-	private ArrayList <Servicio> serviciosContratados = new ArrayList <Servicio>();
+	private List <Servicio> serviciosContratados = new ArrayList <Servicio>();
 
 	private Container container; 
 	private Turno turno;
 	
 	
 	public Orden(LocalDate fechaDeSalida, LocalDate fechaDeLlegada, Cliente importador, Cliente exportador,
-			Viaje viajeSeleccionado, ArrayList<Servicio> serviciosContratados, Container container, Turno turno) {
+			Viaje viajeSeleccionado, List<Servicio> serviciosContratados, Container container, Turno turno) {
 		super();
 		this.fechaDeSalida = fechaDeSalida;
 		this.fechaDeLlegada = fechaDeLlegada;
@@ -34,7 +35,7 @@ public abstract class Orden {
 		this.serviciosContratados = serviciosContratados;
 	
 		this.container = container;
-		this.turno=turno;
+		this.turno     = turno;
 	}
 	
 
@@ -64,7 +65,7 @@ public abstract class Orden {
 	}
 
 
-	public ArrayList<Servicio> getServiciosContratados() {
+	public List<Servicio> getServiciosContratados() {
 		return serviciosContratados;
 	}
 

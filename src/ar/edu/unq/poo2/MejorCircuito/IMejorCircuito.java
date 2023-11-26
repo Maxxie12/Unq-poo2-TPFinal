@@ -7,5 +7,5 @@ import ar.edu.unq.poo2.LineaNaviera.Circuito;
 import ar.edu.unq.poo2.Terminal.Terminal;
 
 public interface IMejorCircuito {
-	public Circuito mejorCircuito( ArrayList<Circuito> circuitosAFiltrar,Terminal terminal);
+	public Circuito mejorCircuito( List<Circuito> circuitosAFiltrar,Terminal terminal);
 }

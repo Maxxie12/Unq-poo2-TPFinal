@@ -63,6 +63,14 @@ public class Viaje {
 	public boolean saleDeLaTerminalGestionadaEn(LocalDate fechaDeSalida) {
 		return this.fechaDeLLegadaAlaTerminalGestionada.equals(fechaDeSalida);
 	}
+
+
+
+	public LocalDate getFechaDeLlegadaADesdeLaTerminal(TerminalGestionada terminalGestionada,
+			Terminal terminalDestino) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
