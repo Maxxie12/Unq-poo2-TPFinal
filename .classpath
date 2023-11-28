@@ -8,10 +8,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/sclui/Downloads/mockitos/objenesis-3.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sclui/Downloads/mockitos/mockito-inline-4.8.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sclui/Downloads/mockitos/byte-buddy-1.12.18.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sclui/Downloads/mockitos/mockito-core-4.8.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sclui/Downloads/mockitos/byte-buddy-agent-1.12.18.jar"/>
+	<classpathentry kind="lib" path="doc/byte-buddy-1.12.18.jar"/>
+	<classpathentry kind="lib" path="doc/byte-buddy-agent-1.12.18.jar"/>
+	<classpathentry kind="lib" path="doc/mockito-core-4.8.1.jar"/>
+	<classpathentry kind="lib" path="doc/mockito-inline-4.8.1.jar"/>
+	<classpathentry kind="lib" path="doc/objenesis-3.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

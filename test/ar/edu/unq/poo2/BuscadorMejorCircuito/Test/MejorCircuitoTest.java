@@ -29,11 +29,9 @@ class MejorCircuitoTest {
 	private Terminal terminalDestino;
 	private ArrayList <Circuito> listaDeCircuitos = new ArrayList<Circuito>();
 	private MenorTiempo menorTiempo;
-	private MenorCantParadas menosParadas;
-	
+	private MenorCantParadas menosParadas;	
 	private MenorPrecio menorPrecio;
-	private MenorCantParadas menorCantParadas;
-
+	
 	@BeforeEach
 	void setUp() throws Exception {
 	
@@ -41,8 +39,10 @@ class MejorCircuitoTest {
 		circuitoTest2= mock(Circuito.class);
 		circuitoTest3= mock(Circuito.class);
 		terminalDestino= mock(Terminal.class);
-		menorTiempo =  new MenorTiempo();
-		menosParadas = new MenorCantParadas();
+		
+		menorTiempo  =  new MenorTiempo();
+		menosParadas =  new MenorCantParadas();
+		menorPrecio  =  new MenorPrecio();
 		
 
 		listaDeCircuitos= new ArrayList<Circuito>();
@@ -76,6 +76,7 @@ class MejorCircuitoTest {
 		void testVerificoQueUnCircuitoNoEsElMejorPorTiempo(){
 		 	assertFalse(circuitoTest1.equals(menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino)));
 	}
+	
 	@Test
 	void testVerificoElmejorCircuitoPorCosto(){
 		 assertEquals(circuitoTest3, menorPrecio.mejorCircuito(listaDeCircuitos, terminalDestino));
@@ -90,9 +91,9 @@ class MejorCircuitoTest {
 	void testVerificoQueUnCircuitoEsElMejorPorMenosParadas(){
 		 assertEquals(circuitoTest3, menosParadas.mejorCircuito(listaDeCircuitos, terminalDestino) );
 	}
+	
 	@Test
 	void testVerificoQueUnCircuitoNoEsElMejorPorCantDeParadas(){
  		assertFalse(circuitoTest1.equals(menosParadas.mejorCircuito(listaDeCircuitos, terminalDestino)));
 }
-
 }
