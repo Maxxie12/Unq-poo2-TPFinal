@@ -6,5 +6,5 @@ public class ContainerTanque extends Container{
 		super(ancho, largo, altura, capacidad,id);
 		// TODO Auto-generated constructor stub
 	}
-
+ 
 }

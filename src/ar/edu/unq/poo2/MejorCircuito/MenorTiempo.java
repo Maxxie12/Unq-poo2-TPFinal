@@ -21,7 +21,7 @@ public class MenorTiempo implements IMejorCircuito{
 		return mejorCircuito;
 	}
 	
-	
+	 
 }
 	
 

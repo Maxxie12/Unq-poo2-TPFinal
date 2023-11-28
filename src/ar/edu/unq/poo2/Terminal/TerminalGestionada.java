@@ -140,4 +140,4 @@ public class TerminalGestionada extends Terminal {
 	public void setMejorCircuito(IMejorCircuito mejorCircuito) {
 		this.mejorCircuito = mejorCircuito;
 	}
-}
+} 

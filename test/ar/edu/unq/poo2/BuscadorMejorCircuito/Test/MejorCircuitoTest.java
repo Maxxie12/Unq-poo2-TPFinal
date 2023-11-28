@@ -2,25 +2,17 @@ package ar.edu.unq.poo2.BuscadorMejorCircuito.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
 import ar.edu.unq.poo2.LineaNaviera.Circuito;
-import ar.edu.unq.poo2.LineaNaviera.Tramo;
 import ar.edu.unq.poo2.MejorCircuito.MenorCantParadas;
 import ar.edu.unq.poo2.MejorCircuito.MenorPrecio;
 import ar.edu.unq.poo2.MejorCircuito.MenorTiempo;
 import ar.edu.unq.poo2.Terminal.Terminal;
-
-import org.junit.jupiter.api.Test;
 
 class MejorCircuitoTest {
 	private Circuito circuitoTest1;
@@ -74,7 +66,7 @@ class MejorCircuitoTest {
 	
 	@Test
 		void testVerificoQueUnCircuitoNoEsElMejorPorTiempo(){
-		 	assertFalse(circuitoTest1.equals(menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino)));
+		 	assertFalse(circuitoTest3.equals(menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino)));
 	}
 	
 	@Test
@@ -84,16 +76,16 @@ class MejorCircuitoTest {
 	
 	@Test
 		void testVerificoQueUnCircuitoNoEsElMejorPorCosto(){
-	 		assertFalse(circuitoTest1.equals(menorPrecio.mejorCircuito(listaDeCircuitos, terminalDestino)));
+	 	assertFalse(circuitoTest1.equals(menorPrecio.mejorCircuito(listaDeCircuitos, terminalDestino)));
 	}
 	
 	@Test
 	void testVerificoQueUnCircuitoEsElMejorPorMenosParadas(){
-		 assertEquals(circuitoTest3, menosParadas.mejorCircuito(listaDeCircuitos, terminalDestino) );
+		 assertEquals(circuitoTest3, menosParadas.mejorCircuito(listaDeCircuitos, terminalDestino));
 	}
 	
 	@Test
 	void testVerificoQueUnCircuitoNoEsElMejorPorCantDeParadas(){
  		assertFalse(circuitoTest1.equals(menosParadas.mejorCircuito(listaDeCircuitos, terminalDestino)));
-}
+	}
 }
