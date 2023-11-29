@@ -111,7 +111,7 @@ public class TerminalGestionada extends Terminal {
 		return clientesRegistrados;
 	}
 
-	public List<Orden> getOrdenesRegistradas() {
+	public List<Orden> getOrdenesActivas() {
 		return ordenesRegistradas;
 	}
 
