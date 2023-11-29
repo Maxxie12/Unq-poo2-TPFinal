@@ -16,5 +16,8 @@ public class Cliente {
 		this.dni 		   = dni;
 		this.nombreCliente = nombreCliente;
 	}
+	public void mandarEmail(String contenido) {
+		
+	}
 
 }

@@ -64,6 +64,8 @@ class ViajeTest {
 		when(circuitoValido.llegaAUnPuertoEstaFecha(fechaDeInicioDeViaje,fechaEnLaQueElViajeParaEnAlgunaTerminal))
 		.thenReturn(true);
 		
+		when(circuitoValido.getCostoADestinoEmpezandoDesde(terminalGestionda,terminalPorLaQuePasa)).thenReturn(100.0);
+		when(circuitoValido.fechaDeLLegadaA(terminalPorLaQuePasa,fechaDeInicioDeViaje)).thenReturn(fechaEnLaQueElViajeParaEnAlgunaTerminal);
 		
 		// Aca creo el viaje			
 		viajeTest = new Viaje(circuitoValido, buqueRegistrado, fechaDeInicioDeViaje, terminalGestionda);
@@ -133,6 +135,18 @@ class ViajeTest {
 		//Aca tiene que dar falso porque no pasa por esa terminal
 		Viaje test = new Viaje (circuitoValido2,buqueRegistrado,LocalDate.now(), terminalGestionda);
 		assertFalse(test.llegaA(terminalPorLaQueNoPasa.getNombre()));
+		
+	}
+	
+	@Test
+	void testUnViajeSabeElCostoEntreDosTerminales() {
+		assertEquals(viajeTest.costoDelViajeEntre(terminalGestionda,terminalPorLaQuePasa),100);
+		
+	}
+	
+	@Test
+	void testUnViajeSabeLaFechaDeLLegadaALaTerminalDada() {
+		assertEquals(viajeTest.getFechaDeLlegadaA(terminalPorLaQuePasa),fechaEnLaQueElViajeParaEnAlgunaTerminal);
 		
 	}
 	

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.poo2.Container.Container;
+import ar.edu.unq.poo2.LineaNaviera.Buque;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
 import ar.edu.unq.poo2.Servicios.Servicio;
 import ar.edu.unq.poo2.Terminal.Terminal;
@@ -87,6 +88,18 @@ public abstract class Orden {
 	
 	public void addServicio(Servicio servicio) {
 		this.serviciosContratados.add(servicio);
+	}
+
+
+
+	public boolean RelacionadaA(Buque buque) {
+		return this.viajeSeleccionado.getBuqueAsignado().equals(buque);
+	}
+
+
+
+	public void mandarFacturaACliente() {
+		
 	}
 	
 }

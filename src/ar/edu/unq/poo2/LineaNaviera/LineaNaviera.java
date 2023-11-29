@@ -3,6 +3,7 @@ package ar.edu.unq.poo2.LineaNaviera;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.unq.poo2.Terminal.Terminal;
@@ -144,6 +145,18 @@ public class LineaNaviera {
 	
 	public void removeViaje(Viaje v) {
 		this.viajesDisponibles.remove(v);
+	}
+
+
+
+
+	public LocalDate proximaSalidaA(Terminal terminalDestino) {
+		return this.viajesDisponibles.stream()
+	            .filter(v -> v.llegaA(terminalDestino.getNombre()))
+	            .map(v -> v.getFechaDeLlegadaALaTerminalGestionada())
+	            .min(LocalDate::compareTo)
+	            .orElse(null);
+	            				
 	}
 	
 }

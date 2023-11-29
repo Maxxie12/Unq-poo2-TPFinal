@@ -152,6 +152,21 @@ public class Circuito {
 
         
 	}
+	
+	public double getCostoADestinoEmpezandoDesde(Terminal terminalInicio ,Terminal terminalDestino) {	      
+		
+		noTieneEsTerminalExepcion(terminalDestino);
+        
+        
+        return tramosDelCircuito.stream()
+        		.dropWhile(tramo -> !tramo.getTerminalInicio().getNombre().equals(terminalInicio.getNombre()))
+                .takeWhile(tramo -> !tramo.getTerminalInicio().getNombre().equals(terminalDestino.getNombre()))
+                .mapToDouble(Tramo::getPrecio)
+                .sum();
+
+        
+	}
+	
     
 	public int getTiempoTotalEnDias() {
 		return this.tramosDelCircuito.stream()

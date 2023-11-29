@@ -17,26 +17,31 @@ import ar.edu.unq.poo2.LineaNaviera.Buque;
 import ar.edu.unq.poo2.LineaNaviera.Circuito;
 import ar.edu.unq.poo2.LineaNaviera.LineaNaviera;
 import ar.edu.unq.poo2.LineaNaviera.Viaje;
+import ar.edu.unq.poo2.Terminal.Terminal;
 import ar.edu.unq.poo2.Terminal.TerminalGestionada;
 
 
 class LineaNavieraTest {
 	
 	private TerminalGestionada terminalGestionda;
-	private LineaNaviera lineaTest;
-	private Circuito circuitoValido;
-	private Circuito circuitoValido2; 
-	private Circuito circuitoInvalido; 
-	private Circuito circuitoValidoNoRegistrado;
-	private Buque buqueRegistrado;
-	private Buque buqueRegistrado2;
-	private Buque buqueNoRegistrado;
-	private Viaje viajeQueSePuedeRegistrar;
-	private Viaje viajeQueElCirucuitoNoEstaRegistrado;
-	private Viaje viajeQueSuBuqueNoEstaRegistrado;
+	private Terminal		   terminalDestino;
+	private LineaNaviera 	   lineaTest;
+	private Circuito 		   circuitoValido;
+	private Circuito 		   circuitoValido2; 
+	private Circuito 		   circuitoInvalido; 
+	private Circuito 		   circuitoValidoNoRegistrado;
+	private Buque 				buqueRegistrado;
+	private Buque 				buqueRegistrado2;
+	private Buque 				buqueNoRegistrado;
+	private Viaje 			    viajeQueSePuedeRegistrar;
+	private Viaje 				viajeQueElCirucuitoNoEstaRegistrado;
+	private Viaje 				viajeQueSuBuqueNoEstaRegistrado;
 	private List<Circuito>circuitos;
 	private List<Buque>buques;
 	private List<Viaje>viajes;
+	private List<Viaje>masviajes;
+	private Viaje valido1; private Viaje valido2; private Viaje valido3;
+	
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -53,6 +58,12 @@ class LineaNavieraTest {
 				viajeQueElCirucuitoNoEstaRegistrado = mock(Viaje.class);
 				viajeQueSuBuqueNoEstaRegistrado = mock(Viaje.class);
 				terminalGestionda  = mock(TerminalGestionada.class);
+				terminalDestino	   = mock(Terminal.class);
+				
+				//para el test de fecha
+				valido1 = mock(Viaje.class);
+				valido2 = mock(Viaje.class);
+				valido3 = mock(Viaje.class);
 		
 	   
 		
@@ -76,17 +87,35 @@ class LineaNavieraTest {
 		when(viajeQueSuBuqueNoEstaRegistrado.getCircuitoARecorrer()).thenReturn(circuitoValido2);
 		when(viajeQueSuBuqueNoEstaRegistrado.getBuqueAsignado()).thenReturn(buqueNoRegistrado);
 		
-			
+		//ViajesExtra Validos
+		when(terminalDestino.getNombre()).thenReturn("TerminalMock");
+		when(valido1.getCircuitoARecorrer()).thenReturn(circuitoValido);
+		when(valido2.getCircuitoARecorrer()).thenReturn(circuitoValido);
+		when(valido3.getCircuitoARecorrer()).thenReturn(circuitoValido);
+		when(valido1.getBuqueAsignado()).thenReturn(buqueRegistrado2);
+		when(valido2.getBuqueAsignado()).thenReturn(buqueRegistrado2);
+		when(valido3.getBuqueAsignado()).thenReturn(buqueRegistrado2);
+		when(valido1.llegaA(terminalDestino.getNombre())).thenReturn(true);
+		when(valido2.llegaA(terminalDestino.getNombre())).thenReturn(false);
+		when(valido3.llegaA(terminalDestino.getNombre())).thenReturn(true);
+		when(valido1.getFechaDeLlegadaALaTerminalGestionada()).thenReturn(LocalDate.of(2023, 12, 11));
+		when(valido3.getFechaDeLlegadaALaTerminalGestionada()).thenReturn(LocalDate.of(2023, 12, 10));
+		//este igual no deberia llegarle el mensaje ya que no va a la terminal que le pedimos
+		when(valido2.getFechaDeLlegadaALaTerminalGestionada()).thenReturn(LocalDate.of(2023, 12, 9));
+		
+		
 		
 		//Las listas para crear la linea naviera 
 		circuitos = new ArrayList<Circuito>();
-		buques = new ArrayList<Buque>();
-		viajes = new ArrayList<Viaje>();
+		buques    = new ArrayList<Buque>();
+		viajes 	  = new ArrayList<Viaje>();
+		masviajes = new ArrayList<Viaje>();
 		circuitos.add(circuitoValido);circuitos.add(circuitoValido2);circuitos.add(circuitoInvalido);
 		buques.add(buqueRegistrado)  ;buques.add(buqueRegistrado2);
 		viajes.add(viajeQueSePuedeRegistrar); 
 		viajes.add(viajeQueElCirucuitoNoEstaRegistrado); 
 		viajes.add(viajeQueSuBuqueNoEstaRegistrado);
+		masviajes.add(valido1);masviajes.add(valido2);masviajes.add(valido3);
 	
 		// Aca creo la linea naviera			
 		lineaTest = new LineaNaviera("COSCO", circuitos, buques, viajes,terminalGestionda);
@@ -139,7 +168,7 @@ class LineaNavieraTest {
 	}
 	
 	@Test
-	void testUnLineaNavieraNoPuedeRegistrarUnCircuitoQueVaALaTerminal() {
+	void testUnLineaNavieraNoPuedeRegistrarUnCircuitoQueNoVaALaTerminal() {
 		//El circuito 3 no va a la terminal por lo cual lanza una exepcion
 		assertThrows(IllegalArgumentException.class, () -> {
 	        lineaTest.registrarCircuito(circuitoInvalido);
@@ -192,6 +221,12 @@ class LineaNavieraTest {
 		assertEquals(lineaTest.getViajesDisponibles().size(), 0);
 	}
 		
+	@Test
+	void testUnLineaNavieraSabeLaFechaDeSalidaDeUnViajeALaTerminalDestino() {
+		LineaNaviera test = new LineaNaviera("test", circuitos, buques, masviajes, terminalGestionda);
+		assertEquals(test.proximaSalidaA(terminalDestino), LocalDate.of(2023, 12, 10)); 
+	}
 	
+
 	
 }

@@ -64,19 +64,14 @@ public class Viaje {
 		return this.fechaDeLLegadaAlaTerminalGestionada.equals(fechaDeSalida);
 	}
 
-
-
-	public LocalDate getFechaDeLlegadaADesdeLaTerminal(TerminalGestionada terminalGestionada,
-			Terminal terminalDestino) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public double costoDelViajeEntre(Terminal terminalOrigen, Terminal terminalDestino) {
+		return this.circuitoARecorrer.getCostoADestinoEmpezandoDesde(terminalOrigen, terminalDestino);
 	}
 
 
-
-	public double costoDelViajeEntre(Terminal terminalOrigen, Terminal terminalDestino) {
-		// TODO Auto-generated method stub
-		return 0;
+	public LocalDate getFechaDeLlegadaA(Terminal terminalDestino) {
+		return this.circuitoARecorrer.fechaDeLLegadaA(terminalDestino, this.fechaDeInicio);
 	}
 	
 	

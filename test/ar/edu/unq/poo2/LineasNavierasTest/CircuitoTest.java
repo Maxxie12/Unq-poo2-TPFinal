@@ -224,6 +224,14 @@ class CircuitoTest {
 		assertEquals(circuitoTest.getTramosDelCircuitoHastaTerminal(terminalFinalTemporal), 3);
 	}
 	
+	@Test
+	void testUnCircuitoSabeElPrecioEntreDelRecorridoEntreDosTerminales(){
+		assertEquals(circuitoTest.getCostoADestinoEmpezandoDesde(terminalSegunda,terminalFinalTemporal), 80);
+		//otro caso para la branch takeWhile
+		assertEquals(circuitoTest.getCostoADestinoEmpezandoDesde(terminalInicial,terminalSegundaFinal), 55);
+	}
+	
+	
 	
 	
 	 
