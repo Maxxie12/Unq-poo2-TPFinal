@@ -129,7 +129,7 @@ public class TerminalGestionada extends Terminal {
 	}
 	
 	public void inminenteArriboDelBuque(Buque buque) {	
-	}
+	} 
 	
 	public void elBuqueAbandonoLasCercanias(Buque buque) {
 	}

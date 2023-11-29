@@ -40,7 +40,7 @@ class MejorCircuitoTest {
 		listaDeCircuitos= new ArrayList<Circuito>();
 		listaDeCircuitos.add(circuitoTest1);listaDeCircuitos.add(circuitoTest2);listaDeCircuitos.add(circuitoTest3);
 	
-		when(circuitoTest1.getDiasHastaTerminal(terminalDestino)).thenReturn(5);
+		when(circuitoTest1.getDiasHastaTerminal(terminalDestino)).thenReturn(54);
 		when(circuitoTest2.getDiasHastaTerminal(terminalDestino)).thenReturn(34);
 		when(circuitoTest3.getDiasHastaTerminal(terminalDestino)).thenReturn(12); 
 		
@@ -53,7 +53,7 @@ class MejorCircuitoTest {
 		when(circuitoTest1.getTramosDelCircuitoHastaTerminal(terminalDestino)).thenReturn(50);
 		when(circuitoTest2.getTramosDelCircuitoHastaTerminal(terminalDestino)).thenReturn(21);
 		when(circuitoTest3.getTramosDelCircuitoHastaTerminal(terminalDestino)).thenReturn(13);
-		
+		 
 		
 		
 
@@ -61,12 +61,12 @@ class MejorCircuitoTest {
 	}
 	@Test
 		void testVerificoElmejorCircuitoPorTiempo(){
-			 assertEquals(circuitoTest1, menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino) );
+			 assertEquals(circuitoTest3, menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino) );
 	}
 	
 	@Test
 		void testVerificoQueUnCircuitoNoEsElMejorPorTiempo(){
-		 	assertFalse(circuitoTest3.equals(menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino)));
+		 	assertFalse(circuitoTest1.equals(menorTiempo.mejorCircuito(listaDeCircuitos, terminalDestino)));
 	}
 	
 	@Test

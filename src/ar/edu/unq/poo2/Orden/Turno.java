@@ -18,18 +18,18 @@ public class Turno {
 		this.hora				= hora;
 	}
 	
-	public boolean verificarTurno(Camion camionQueLlego, Conductor conductorDelCamion, LocalDateTime horaQueLlego) {
-		return(this.camionEnLaOrden.equals(conductorDelCamion)&&this.conductorEnLaOrden.equals(conductorDelCamion)&&this.estaDentroDeLaTolerancia(this.hora,horaQueLlego ));
+	public boolean verificarTurno(Camion camionQueLlego, Conductor conductorDelCamion, LocalDateTime horaQueLlego, int tolerancia) {
+		return(this.camionEnLaOrden.equals(conductorDelCamion)&&this.conductorEnLaOrden.equals(conductorDelCamion)&&this.estaDentroDeLaTolerancia(this.hora,horaQueLlego, tolerancia ));
 	}
 
 
 
-	private boolean estaDentroDeLaTolerancia(LocalDateTime horaDelTurno, LocalDateTime horaQueLlego ) {
+	private boolean estaDentroDeLaTolerancia(LocalDateTime horaDelTurno, LocalDateTime horaQueLlego, int tolerancia ) {
 		 Duration diferencia = Duration.between(horaDelTurno, horaQueLlego );
 		 
 	        long diferenciaEnHoras = Math.abs(diferencia.toHours());
 
 	        // Verificar si la diferencia está dentro de las 3 horas
-	        return diferenciaEnHoras <= 3;
+	        return diferenciaEnHoras <= tolerancia;
 	}
 }

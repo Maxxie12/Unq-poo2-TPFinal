@@ -71,6 +71,13 @@ public class Viaje {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	public double costoDelViajeEntre(Terminal terminalOrigen, Terminal terminalDestino) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	
