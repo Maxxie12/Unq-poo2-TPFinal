@@ -2,6 +2,7 @@ package ar.edu.unq.poo2.CommonTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import ar.unq.edu.poo2.Common.Camion;
-import ar.unq.edu.poo2.Common.Cliente;
 import ar.unq.edu.poo2.Common.Conductor;
 import ar.unq.edu.poo2.Common.EmpresaTransportista;
 
@@ -26,7 +26,6 @@ public class EmpresaTransportistaTest {
 	Conductor conductor1 = mock(Conductor.class);
 	Conductor conductor2 = mock(Conductor.class);
 	Conductor conductor3 = mock(Conductor.class);
-	
 	
 	@Test
 	public void seRegistranCamiones() {
@@ -47,7 +46,31 @@ public class EmpresaTransportistaTest {
 		assertEquals(3, cantConductores);
 	}
 	
-
+	@Test
+	public void elNombreDeLaEmpresaEs() {
+		assertEquals("empresaDeTransporte", empresaTransportista.getNombreEmpresa());
+	}
+			
+	
+	@Test
+	public void eliminarCamion() {
+		empresaTransportista.registrarCamion(camion1);
+		empresaTransportista.registrarCamion(camion2);
+		empresaTransportista.registrarCamion(camion3);
+	
+		empresaTransportista.removeCamion(camion2);
+		assertEquals(2, empresaTransportista.getCamionesRegistrados().size());
+	}
+	
+	@Test
+	public void eliminarConductor() {
+		empresaTransportista.registrarConductor(conductor1);
+		empresaTransportista.registrarConductor(conductor2);
+		empresaTransportista.registrarConductor(conductor3);
+		
+		empresaTransportista.removeConductor(conductor1);
+		assertEquals(2,empresaTransportista.getConductoresRegistrados().size());
+	}
 	
 	
 }
