@@ -7,20 +7,15 @@ import ar.edu.unq.poo2.Terminal.Terminal;
 
 public class Circuito {
 	
-	private Terminal terminalIncio;
-	private Terminal terminalFinal;
 	private List<Tramo> tramosDelCircuito;
 	
 	
 	public Circuito(List<Tramo> tramos) {
         
-        exepcionCircuitoInvalido(tramos);
-        
-        this.terminalIncio = tramos.get(0).getTerminalInicio();
-        this.terminalFinal = tramos.get(tramos.size()-1).getTerminalDestino();        
+        exepcionCircuitoInvalido(tramos);   
         this.tramosDelCircuito = tramos;
 	
-}
+} 
 
 	private void exepcionCircuitoInvalido(List<Tramo> tramos) {
 		//Es invalido si los tramos no estan en orden de terminales 
@@ -59,12 +54,11 @@ public class Circuito {
 	
 	public void agregarTramo(Tramo t) {
 		exepcionTramoNoContinuaElCircuito(t);
-		this.terminalFinal = t.getTerminalDestino();
 		this.tramosDelCircuito.add(t);
 	}
 
 	private void exepcionTramoNoContinuaElCircuito(Tramo t) {
-		if (!t.getTerminalInicio().getNombre().equals(this.terminalFinal.getNombre())) {
+		if (!t.getTerminalInicio().getNombre().equals(this.getTerminalFinal().getNombre())) {
 			throw new IllegalArgumentException("Este tramo no continua el circuito actual.");
 		}
 	}
@@ -131,7 +125,7 @@ public class Circuito {
 	}
 
 	private boolean estaTerminalIniciaDeEstaTerminal(Terminal terminal) {
-		return this.terminalIncio.getNombre() == terminal.getNombre();
+		return this.getTerminalIncio().getNombre() == terminal.getNombre();
 	}
 
 	//GETTERS
@@ -175,11 +169,12 @@ public class Circuito {
 	}
 	
 	public Terminal getTerminalIncio() {
-		return terminalIncio;
+		return this.tramosDelCircuito.get(0).getTerminalInicio();
 	}
 
 	public Terminal getTerminalFinal() {
-		return terminalFinal;
+		int ultimo = this.tramosDelCircuito.size() - 1;
+		return this.tramosDelCircuito.get(ultimo).getTerminalDestino();    
 	}
 
 	public List<Tramo> getTramosDelCircuito() {

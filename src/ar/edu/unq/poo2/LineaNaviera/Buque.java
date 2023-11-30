@@ -3,22 +3,21 @@ package ar.edu.unq.poo2.LineaNaviera;
 import ar.edu.unq.poo2.EstadoBuque.IFaseBuque;
 import ar.edu.unq.poo2.EstadoBuque.Outbound;
 import ar.edu.unq.poo2.EstadoBuque.Working;
+import ar.unq.edu.poo2.Common.Coordenada;
 import ar.edu.unq.poo2.EstadoBuque.Arrived;
 
 public class Buque {
 	
 	private String 	patenteDeBuque;
 	private LineaNaviera lineaNavieraALaCualEstaRegistrado;
-	private int			latitud;
-	private int         longitud;
+	private Coordenada	coordenada;
 	private boolean	    puedeEmpezarATrabajar;
 	private boolean     puedeSalirDeLaTerminal;
 	private IFaseBuque  faseDelBuqueActual;
 	
 	public Buque(String patente) {
 		this.patenteDeBuque 		  = patente;
-		this.latitud 	= 0;
-		this.longitud 	= 0;
+		this.coordenada				  = new Coordenada(0, 0);
 		puedeEmpezarATrabajar		  = false;
 		puedeSalirDeLaTerminal		  = false;
 		this.faseDelBuqueActual 	  = new Outbound();
@@ -38,16 +37,10 @@ public class Buque {
 		return this.lineaNavieraALaCualEstaRegistrado;
 	}
 	
-	public int getLongitud() {
-		return longitud;
+	public Coordenada getCoordenda() {
+		return coordenada;
 	}
-
-	public int getLatitud() {
-		return latitud;
-	}
-
-	
-	
+		
 	public void setLineaNaviera(LineaNaviera lineaN) {
 		this.lineaNavieraALaCualEstaRegistrado = lineaN;
 	}
@@ -80,19 +73,12 @@ public class Buque {
 		lineaNavieraALaCualEstaRegistrado.getTerminalGestionada().elBuqueAbandonoLasCercanias(this);	
 	}
 
-	public void setCoordenadaDelBuqueActual(int latitud, int longitud) {
-		this.latitud 	= latitud;
-		this.longitud   = longitud;
+	public void setCoordenadaDelBuqueActual(Coordenada coordenada) {
+		this.coordenada 	= coordenada;
 		this.actualizarEstado();
 	}
 
-	public boolean seEncuentraA50kmDeLaTerminal() {
-		return this.getLineaNaviera().getTerminalGestionada().elBuqueEstaARangoCercanoDeLaTerminal(this);
-	}
-
-	public boolean seEncuentraEnLaTerminal() {
-		return this.getLineaNaviera().getTerminalGestionada().elBuqueSeEncuentraEnLaTerminal(this);
-	}
+	
 
 	public void iniciarTrabajo() {
 		this.puedeEmpezarATrabajar  = true;
@@ -111,9 +97,17 @@ public class Buque {
 	public boolean getPuedeSalirDeLaTerminal() {
 		return puedeSalirDeLaTerminal;
 	}
+	
+	public boolean seEncuentraA50kmDeLaTerminal() {
+		return this.getLineaNaviera().getTerminalGestionada().elBuqueEstaARangoCercanoDeLaTerminal(this.getCoordenda());
+	}
 
+	public boolean seEncuentraEnLaTerminal() {
+		return this.getLineaNaviera().getTerminalGestionada().elBuqueSeEncuentraEnLaTerminal(this.getCoordenda());
+	}
+	
 	public boolean FueraDelRangoDeLaTerminal() {
-		return this.getLineaNaviera().getTerminalGestionada().elBuqueSeEncuentraFueraDelRangoDeLaTerminal(this);
+		return this.getLineaNaviera().getTerminalGestionada().elBuqueSeEncuentraFueraDelRangoDeLaTerminal(this.getCoordenda());
 	}
 
 	public boolean isEsperandoIniciarTrabajo() {
