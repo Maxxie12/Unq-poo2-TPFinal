@@ -6,8 +6,9 @@ public class Inbound implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
+		if(b.seEncuentraEnLaTerminal()) {
 		b.setFase(new Arrived());
 
+		}
 	}
-
 }

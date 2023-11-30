@@ -35,12 +35,13 @@ public class TerminalGestionada extends Terminal {
 	private List<Orden>				   ordenesRegistradas;
 	private List<Orden>				   ordenesFinalizadas;
 	private IMejorCircuito			   mejorCircuito;
+
 	
 	
-	public TerminalGestionada(String nombre,List<LineaNaviera> lineasNavierasRegistradas,
+	public TerminalGestionada(String nombre, int latitud, int longitud,List<LineaNaviera> lineasNavierasRegistradas,
 							  List<EmpresaTransportista> empresasRegistradas,
 							  List<Cliente> clientesRegistrados) {
-		super(nombre);
+		super(nombre,latitud,longitud);
 		this.lineasNavierasRegistradas = lineasNavierasRegistradas;
 		this.empresasRegistradas       = empresasRegistradas;
 		this.clientesRegistrados       = clientesRegistrados;
@@ -85,12 +86,12 @@ public class TerminalGestionada extends Terminal {
 		
 		Turno turno            = new Turno(camion,conductor,fechaDeLLegadaALaTerminal.atTime(horaDelTurno));
 		
-		Orden ordenImportacion = new OrdenImportacion(fechaDeLLegadaALaTerminal, 
+		Orden ordenExportacion = new OrdenExportacion(fechaDeLLegadaALaTerminal, 
 													  viajeSeleccionado.getFechaDeLlegadaA(terminalDestino), 
 													  cliente, viajeSeleccionado, 
 													  serviciosContratados, datosDeLaCarga, turno,this,terminalDestino);
 		
-		ordenesRegistradas.add(ordenImportacion);
+		ordenesRegistradas.add(ordenExportacion);
 		
 	}
 	
@@ -183,10 +184,6 @@ public class TerminalGestionada extends Terminal {
 				.toList();
 	}
 	
-	public Circuito devolverMejorCircuito(Terminal terminalDestino) {
-		return mejorCircuito.mejorCircuito(getTodosLosCircuito(), terminalDestino);
-		
-	}
 	
 	public Optional<LocalDate> devolverFechaProximaHacia(Terminal terminalDestino) {
 	        return this.lineasNavierasRegistradas.stream()
@@ -201,6 +198,50 @@ public class TerminalGestionada extends Terminal {
 	public void setMejorCircuito(IMejorCircuito mejorCircuito) {
 		this.mejorCircuito = mejorCircuito;
 	}
+
+	
+	// BuqueDepart Y Inicio De Trabajo
+	
+	public void habilitarIncioDeTrabajoDeTodosLosBuquesDisponibles() {
+		this.ordenesRegistradas.stream()
+			.filter(o-> o.getViajeSeleccionado().getBuqueAsignado().isEsperandoIniciarTrabajo())
+			.forEach(o-> o.getViajeSeleccionado().getBuqueAsignado().iniciarTrabajo());
+	}
+	
+	
+	public void habilitarDepartDeTodosLosBuquesDisponibles() {
+		this.ordenesRegistradas.stream()
+			.filter(o-> o.getViajeSeleccionado().getBuqueAsignado().isEsperandoDepart())
+			.forEach(o-> o.getViajeSeleccionado().getBuqueAsignado().avisarDepart());
+	}
+	
+	
+	
+	// Buque Coordenadas
+	public boolean elBuqueEstaARangoCercanoDeLaTerminal(Buque buque) {
+			double distancia = distanciaEntreDosPuntos(buque);
+			return distancia < 50;
+	}
+
+	public boolean elBuqueSeEncuentraEnLaTerminal(Buque buque) {
+		double distancia = distanciaEntreDosPuntos(buque);
+		return distancia == 0;
+	}
+	
+	public boolean elBuqueSeEncuentraFueraDelRangoDeLaTerminal(Buque buque) {
+		return distanciaEntreDosPuntos(buque) > 1;
+	}
+	
+	private double distanciaEntreDosPuntos(Buque buque) {
+		double longitudDistancia = buque.getLongitud() - this.getLongitud();
+		double latitudDistancia = buque.getLatitud() - this.getLatitud();
+		return Math.sqrt(longitudDistancia * longitudDistancia + latitudDistancia * latitudDistancia);
+	}
+	
+
+	
+
+	
 	
 	
 	

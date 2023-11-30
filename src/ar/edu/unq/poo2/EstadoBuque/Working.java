@@ -6,7 +6,10 @@ public class Working implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
-		b.setFase(new Departing());
+		if(b.getPuedeSalirDeLaTerminal()){
+			
+			b.setFase(new Departing());
+		}
 
 	}
 

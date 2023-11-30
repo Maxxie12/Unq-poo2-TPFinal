@@ -30,11 +30,13 @@ class BuqueTest {
 	void setUp() throws Exception {
 		
 		//DOC
-		lineaNavieraARegistrarse = mock(LineaNaviera.class);
-		terminalMock             = mock(TerminalGestionada.class);
+		lineaNavieraARegistrarse 		      = mock(LineaNaviera.class);
+		terminalMock             			  = mock(TerminalGestionada.class);
+		
 		
 		//mockeo 
 		when(lineaNavieraARegistrarse.getTerminalGestionada()).thenReturn(terminalMock);
+		
 		
 		//Creo el buque
 		
@@ -63,57 +65,118 @@ class BuqueTest {
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
 		assertEquals(buqueTest.getLineaNaviera(), lineaNavieraARegistrarse);
 	}
-	
-	
+		
 	@Test
-	void testUnBuqueNPPuedeAvanzarDeFaseSiNoEstaRegistrado() {
+	void testUnBuqueNoPuedePuedeActualizarSusCordenadaSiNoEstaRegistrado() {
 		assertThrows(IllegalArgumentException.class, () -> {
-	        buqueTest.actualizarEstado();
+			buqueTest.setCoordenadaDelBuqueActual(100, 230);
 	    });
 	}	
 	
 	@Test
-	void testUnBuquePuedeAvanzarDeFaseOutboundASuSiguiente() {
+	void testUnBuquePuedeActualizarSusCordenadas() {
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
-		buqueTest.actualizarEstado();
+		assertEquals(buqueTest.getLatitud(), 0);
+		assertEquals(buqueTest.getLongitud(), 0);
+		buqueTest.setCoordenadaDelBuqueActual(100, 230);
+		assertEquals(buqueTest.getLatitud(), 100);
+		assertEquals(buqueTest.getLongitud(), 230);
+	}
+	
+	@Test
+	void testUnBuquePuedeAvanzarDeFaseOutboundASuSiguiente() {
+		TerminalGestionada terminalMockeo = lineaNavieraARegistrarse.getTerminalGestionada();
+		when(terminalMockeo.elBuqueEstaARangoCercanoDeLaTerminal(buqueTest)).thenReturn(true);
+		
+		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+				
+		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Outbound.class);
+		buqueTest.setCoordenadaDelBuqueActual(1, 1);
+		
 		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Inbound.class);
 		//Tambien vemos que le haya llegado el mensaje a la terminal
 		verify(terminalMock, times(1)).inminenteArriboDelBuque(buqueTest);
 	}
 	
 	@Test
-	void testUnBuquePuedeAvanzarDeFaseInboundASuSiguiente() {
+	void testUnBuqueNoAvanzaSiNoCumpleLosRequisitosDeFaseOutboundASuSiguiente() {
+		TerminalGestionada terminalMockeo = lineaNavieraARegistrarse.getTerminalGestionada();
+		when(terminalMockeo.elBuqueEstaARangoCercanoDeLaTerminal(buqueTest)).thenReturn(false);
+		
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+				
+		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Outbound.class);
+		buqueTest.setCoordenadaDelBuqueActual(1, 1);
+		
+		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Outbound.class);
+		
+	}
+	
+	@Test
+	void testUnBuquePuedeAvanzarDeFaseInboundASuSiguiente() {
+		TerminalGestionada terminalMockeo = lineaNavieraARegistrarse.getTerminalGestionada();
+		when(terminalMockeo.elBuqueSeEncuentraEnLaTerminal(buqueTest)).thenReturn(true);
+		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+		
 		buqueTest.setFase(new Inbound());
-		buqueTest.actualizarEstado();
+		buqueTest.setCoordenadaDelBuqueActual(1, 1);
 		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Arrived.class);
+	}
+	
+	@Test
+	void testUnBuqueNoPuedeAvanzarDeFaseInboundASuSiguienteSiNoCumpleLosRequisitos() {
+		TerminalGestionada terminalMockeo = lineaNavieraARegistrarse.getTerminalGestionada();
+		when(terminalMockeo.elBuqueSeEncuentraEnLaTerminal(buqueTest)).thenReturn(false);
+		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+		
+		buqueTest.setFase(new Inbound());
+		buqueTest.setCoordenadaDelBuqueActual(1, 1);
+		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Inbound.class);
 	}
 	
 	@Test
 	void testUnBuquePuedeAvanzarDeFaseArrivedASuSiguiente() {
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
 		buqueTest.setFase(new Arrived());
-		buqueTest.actualizarEstado();
+		buqueTest.iniciarTrabajo();
 		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Working.class);
+	}
+	
+	@Test
+	void testUnBuquePuedeAvanzarDeFaseArrivedAunqueCambieDeCoordenada() {
+		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+		buqueTest.setFase(new Arrived());
+		buqueTest.setCoordenadaDelBuqueActual(1, 1);
+		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Arrived.class);
 	}
 	
 	@Test
 	void testUnBuquePuedeAvanzarDeFaseWorkingASuSiguiente() {
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
 		buqueTest.setFase(new Working());
-		buqueTest.actualizarEstado();
+		buqueTest.libertadDeDepart();
 		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Departing.class);
 	}
 	
 	@Test
 	void testUnBuquePuedeAvanzarDeFaseDepartingASuSiguiente() {
+		TerminalGestionada terminalMockeo = lineaNavieraARegistrarse.getTerminalGestionada();
+		when(terminalMockeo.elBuqueSeEncuentraFueraDelRangoDeLaTerminal(buqueTest)).thenReturn(true);
 		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
 		buqueTest.setFase(new Departing());
-		buqueTest.actualizarEstado();
+		buqueTest.setCoordenadaDelBuqueActual(100, 100);
 		assertEquals(buqueTest.getFaseDelBuqueActual().getClass(), Outbound.class);
 		verify(terminalMock, times(1)).elBuqueAbandonoLasCercanias(buqueTest);
 	}
 	
-	
+	@Test
+	void testUnBuquePuedeSaberSiEstaListoParaTrabajarOPartir() {
+		buqueTest.setLineaNaviera(lineaNavieraARegistrarse);
+		buqueTest.setFase(new Arrived());
+		assertTrue(buqueTest.isEsperandoIniciarTrabajo());
+		buqueTest.setFase(new Working());
+		assertTrue(buqueTest.isEsperandoDepart());
+		
+	}
 
 }

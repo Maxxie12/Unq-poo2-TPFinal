@@ -6,9 +6,10 @@ public class Departing implements IFaseBuque {
 
 	@Override
 	public void pasarDeFase(Buque b) {
+		if(b.FueraDelRangoDeLaTerminal()) {
 			b.setFase(new Outbound());
 			b.avisarDepart();
 
 	}
-
+	}
 }
