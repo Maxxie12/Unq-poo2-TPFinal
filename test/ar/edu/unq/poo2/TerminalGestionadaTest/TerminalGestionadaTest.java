@@ -27,6 +27,7 @@ import ar.edu.unq.poo2.Terminal.TerminalGestionada;
 import ar.unq.edu.poo2.Common.Camion;
 import ar.unq.edu.poo2.Common.Cliente;
 import ar.unq.edu.poo2.Common.Conductor;
+import ar.unq.edu.poo2.Common.Coordenada;
 import ar.unq.edu.poo2.Common.EmpresaTransportista;
 
 class TerminalGestionadaTest {
@@ -64,6 +65,8 @@ class TerminalGestionadaTest {
 	private LocalDate			 fechaDeLLegadaAlaTerminalGestionada;
 	private LocalDate			 fechaDeLLegadaAlaTerminalDestino;
 	private IMejorCircuito		 mejorCircuitoMock;
+	private Coordenada coorBuque;
+	private Coordenada coorTerminal;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -91,6 +94,8 @@ class TerminalGestionadaTest {
 		conductorParaOrden		 = mock(Conductor.class);
 		buqueParaOrden			 = mock(Buque.class);
 		buqueParaOrden2			 = mock(Buque.class);
+		coorTerminal			 = mock(Coordenada.class);
+		coorBuque				 = mock(Coordenada.class);
 		horaDelTurno			 = LocalTime.of(12, 30);
 		fechaDeLLegadaAlaTerminalGestionada = LocalDate.of(2023, 12, 10);
 		fechaDeLLegadaAlaTerminalDestino = LocalDate.of(2023, 12, 25);
@@ -126,7 +131,7 @@ class TerminalGestionadaTest {
 		when(viajeParaOrden.getBuqueAsignado()).thenReturn(buqueParaOrden);
 		when(viajeParaOrden2.getBuqueAsignado()).thenReturn(buqueParaOrden2);
 		
-		terminalGestionadaTest = new TerminalGestionada("Bs", 30, 60, lineasNavierasRegistradas, empresasRegistradas, clientesRegistrados);
+		terminalGestionadaTest = new TerminalGestionada("Bs", coorTerminal, lineasNavierasRegistradas, empresasRegistradas, clientesRegistrados);
 		when(mejorCircuitoMock.mejorCircuito(terminalGestionadaTest.getTodosLosCircuito(), terminal)).thenReturn(circuitoDosDeLineaNaviera1);
 	}
 
@@ -134,14 +139,7 @@ class TerminalGestionadaTest {
 	void testUnTerminalPuedeDevolverSuNombre() {
 		assertEquals(terminalGestionadaTest.getNombre(), "Bs");
 	}
-	
-	@Test
-	void testUnTerminalPuedeDevolverSusLatiudYLongitud() {
-		assertEquals(terminalGestionadaTest.getLatitud(), 30);
-		assertEquals(terminalGestionadaTest.getLongitud(), 60);
-	}
-	
-	
+			
 	@Test
 	void testUnTerminalPuedeDevolverSusLineasNavierasRegistradas() {
 		assertEquals(terminalGestionadaTest.getLineasNavierasRegistradas().size(), 2);
@@ -237,49 +235,43 @@ class TerminalGestionadaTest {
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueEstaCerca() {
-		when(buqueParaOrden.getLatitud()).thenReturn(50);
-		when(buqueParaOrden.getLongitud()).thenReturn(30);
-		assertTrue(terminalGestionadaTest.elBuqueEstaARangoCercanoDeLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(49.0);
+		assertTrue(terminalGestionadaTest.elBuqueEstaARangoCercanoDeLaTerminal(coorBuque)); 
 		
 	}
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueNoEstaCerca() {
-		when(buqueParaOrden.getLatitud()).thenReturn(80);
-		when(buqueParaOrden.getLongitud()).thenReturn(40);
-		assertFalse(terminalGestionadaTest.elBuqueEstaARangoCercanoDeLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(51.0);
+		assertFalse(terminalGestionadaTest.elBuqueEstaARangoCercanoDeLaTerminal(coorBuque)); 
 		
 	}
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueEstaEnLaTermianal() {
-		when(buqueParaOrden.getLatitud()).thenReturn(30);
-		when(buqueParaOrden.getLongitud()).thenReturn(60);
-		assertTrue(terminalGestionadaTest.elBuqueSeEncuentraEnLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(0.0);
+		assertTrue(terminalGestionadaTest.elBuqueSeEncuentraEnLaTerminal(coorBuque)); 
 		
 	}
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueNoEstaEnLaTermianal() {
-		when(buqueParaOrden.getLatitud()).thenReturn(31);
-		when(buqueParaOrden.getLongitud()).thenReturn(60);
-		assertFalse(terminalGestionadaTest.elBuqueSeEncuentraEnLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(0.1);
+		assertFalse(terminalGestionadaTest.elBuqueSeEncuentraEnLaTerminal(coorBuque)); 
 		
 	}
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueSeEncunetraFueraDelRadioEnLaTermianal() {
-		when(buqueParaOrden.getLatitud()).thenReturn(35);
-		when(buqueParaOrden.getLongitud()).thenReturn(60);
-		assertTrue(terminalGestionadaTest.elBuqueSeEncuentraFueraDelRangoDeLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(1.1);
+		assertTrue(terminalGestionadaTest.elBuqueSeEncuentraFueraDelRangoDeLaTerminal(coorBuque)); 
 		
 	}
 	
 	@Test
 	void testUnTerminalPuedeDecirSiElBuqueNoEncunetraFueraDelRadioEnLaTermianal() {
-		when(buqueParaOrden.getLatitud()).thenReturn(31);
-		when(buqueParaOrden.getLongitud()).thenReturn(60);
-		assertFalse(terminalGestionadaTest.elBuqueSeEncuentraFueraDelRangoDeLaTerminal(buqueParaOrden)); 
+		when(coorTerminal.distanciaALaCoordenda(coorBuque)).thenReturn(1.0);
+		assertFalse(terminalGestionadaTest.elBuqueSeEncuentraFueraDelRangoDeLaTerminal(coorBuque)); 
 		
 	}
 	

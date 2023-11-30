@@ -24,24 +24,28 @@ import ar.edu.unq.poo2.Servicios.Servicio;
 import ar.unq.edu.poo2.Common.Camion;
 import ar.unq.edu.poo2.Common.Cliente;
 import ar.unq.edu.poo2.Common.Conductor;
+import ar.unq.edu.poo2.Common.Coordenada;
 import ar.unq.edu.poo2.Common.EmpresaTransportista;
 
 public class TerminalGestionada extends Terminal {
 		
-	
+	private Coordenada 				   coordenadaDeLaTerminal;	   
 	private List<LineaNaviera>         lineasNavierasRegistradas;
 	private List<EmpresaTransportista> empresasRegistradas;
 	private List<Cliente> 			   clientesRegistrados;
 	private List<Orden>				   ordenesRegistradas;
 	private List<Orden>				   ordenesFinalizadas;
+	private Coordenada				   coordenda;
 	private IMejorCircuito			   mejorCircuito;
 
 	
 	
-	public TerminalGestionada(String nombre, int latitud, int longitud,List<LineaNaviera> lineasNavierasRegistradas,
+	public TerminalGestionada(String nombre,Coordenada coordenada,List<LineaNaviera> lineasNavierasRegistradas,
 							  List<EmpresaTransportista> empresasRegistradas,
 							  List<Cliente> clientesRegistrados) {
-		super(nombre,latitud,longitud);
+		super(nombre);
+		
+		this.coordenadaDeLaTerminal	   = coordenada;
 		this.lineasNavierasRegistradas = lineasNavierasRegistradas;
 		this.empresasRegistradas       = empresasRegistradas;
 		this.clientesRegistrados       = clientesRegistrados;
@@ -218,25 +222,21 @@ public class TerminalGestionada extends Terminal {
 	
 	
 	// Buque Coordenadas
-	public boolean elBuqueEstaARangoCercanoDeLaTerminal(Buque buque) {
-			double distancia = distanciaEntreDosPuntos(buque);
+	public boolean elBuqueEstaARangoCercanoDeLaTerminal(Coordenada coor) {
+			double distancia = this.coordenadaDeLaTerminal.distanciaALaCoordenda(coor);
 			return distancia < 50;
 	}
 
-	public boolean elBuqueSeEncuentraEnLaTerminal(Buque buque) {
-		double distancia = distanciaEntreDosPuntos(buque);
+	public boolean elBuqueSeEncuentraEnLaTerminal(Coordenada coor) {
+		double distancia = this.coordenadaDeLaTerminal.distanciaALaCoordenda(coor);
 		return distancia == 0;
 	}
 	
-	public boolean elBuqueSeEncuentraFueraDelRangoDeLaTerminal(Buque buque) {
-		return distanciaEntreDosPuntos(buque) > 1;
+	public boolean elBuqueSeEncuentraFueraDelRangoDeLaTerminal(Coordenada coor) {
+		return this.coordenadaDeLaTerminal.distanciaALaCoordenda(coor) > 1;
 	}
 	
-	private double distanciaEntreDosPuntos(Buque buque) {
-		double longitudDistancia = buque.getLongitud() - this.getLongitud();
-		double latitudDistancia = buque.getLatitud() - this.getLatitud();
-		return Math.sqrt(longitudDistancia * longitudDistancia + latitudDistancia * latitudDistancia);
-	}
+	
 	
 
 	
