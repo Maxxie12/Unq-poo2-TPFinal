@@ -19,7 +19,7 @@ public class Turno {
 	}
 	
 	public boolean verificarTurno(Camion camionQueLlego, Conductor conductorDelCamion, LocalDateTime horaQueLlego, int tolerancia) {
-		return(this.camionEnLaOrden.equals(conductorDelCamion)&&this.conductorEnLaOrden.equals(conductorDelCamion)&&this.estaDentroDeLaTolerancia(this.hora,horaQueLlego, tolerancia ));
+		return(this.camionEnLaOrden.equals(camionQueLlego )&&this.conductorEnLaOrden.equals(conductorDelCamion)&&this.estaDentroDeLaTolerancia(this.hora,horaQueLlego, tolerancia ));
 	}
 
 
