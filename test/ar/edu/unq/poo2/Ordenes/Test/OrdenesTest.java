@@ -40,6 +40,7 @@ class OrdenesTest {
 	private Camion camionTest;
 	private Conductor conductorTest;
 	private LocalDate horaTest;
+	private LocalDate horaTest2;
 	private Cliente clienteTest;
 	private Viaje viajeTest;
 	private Container containerTest;
@@ -77,29 +78,48 @@ class OrdenesTest {
 		
 		listaDeServicios= new ArrayList<Servicio>();
 		listaDeServicios.add(servicioTest1);listaDeServicios.add(servicioTest2);listaDeServicios.add(servicioTest3);
-		ordenImportacionTest = new OrdenImportacion(horaTest, horaTest, clienteTest, viajeTest, listaDeServicios, containerTest, turnoTest, terminalOrigen, terminalDestino);
-		ordenExportacionTest = new OrdenExportacion(horaTest, horaTest, clienteTest, viajeTest, listaDeServicios, containerTest, turnoTest, terminalDestino, terminalDestino);
+		ordenImportacionTest = new OrdenImportacion(horaTest, horaTest2, clienteTest, viajeTest, listaDeServicios, containerTest, turnoTest, terminalOrigen, terminalDestino);
+		ordenExportacionTest = new OrdenExportacion(horaTest, horaTest2, clienteTest, viajeTest, listaDeServicios, containerTest, turnoTest, terminalDestino, terminalDestino);
 		
 		//camionTest  =  new Camion("1234");
 		//horaTest  =  new MenorPrecio();
 
 	}
+	
+	///estos dos falla y no se por que
+	
 	@Test
-		void testCheckeoQueElTurnoEsta(){//importacion
+		void testCheckeoQueElTurnoEstaImportacion(){//importacion
 			LocalDateTime horaLLegadaTest =LocalDateTime.now() ;
 			when(turnoTest.verificarTurno(camionTest, conductorTest, horaLLegadaTest , 3)).thenReturn(true);
 			assertTrue(ordenImportacionTest.checkearTurno(camionTest, conductorTest,horaLLegadaTest ));
 	}
 	
+	
+	void testCheckeoQueElTurnoEstaExportacion(){//importacion
+		LocalDateTime horaLLegadaTest =LocalDateTime.now() ;
+		when(turnoTest.verificarTurno(camionTest, conductorTest, horaLLegadaTest , 3)).thenReturn(true);
+		assertTrue(ordenExportacionTest.checkearTurno(camionTest, conductorTest,horaLLegadaTest ));
+}
+	
+	
+	
+	
+	
+	@Test
+	void testCheckeoQueElTurnoExportacionNoEsta(){ //Exportacion
+		when(turnoTest.verificarTurno(camionTest, conductorTest, LocalDateTime.now(), 3)).thenReturn(false);
+		assertFalse(ordenExportacionTest.checkearTurno(camionTest, conductorTest, LocalDateTime.now()));
+	}
 	 
 	
 	@Test
-	void testCheckeoQueElTurnoNoEsta(){ //importacion
+	void testCheckeoQueElTurnoImportacionNoEsta(){ //importacion
 		when(turnoTest.verificarTurno(camionTest, conductorTest, LocalDateTime.now(), 3)).thenReturn(false);
 		assertFalse(ordenImportacionTest.checkearTurno(camionTest, conductorTest, LocalDateTime.now()));
 	}
 	@Test
-	void testCheckeoElCostoDeLaOrdenDeImportacion(){
+	void testCheckeoElCostoDeLaOrdenDeImportacion(){ //importacion
 		when(servicioTest1.calcularPrecioDelServicio()).thenReturn(40.0);
 		when(servicioTest2.calcularPrecioDelServicio()).thenReturn(30.50);
 		when(servicioTest3.calcularPrecioDelServicio()).thenReturn(10.70);
@@ -108,6 +128,8 @@ class OrdenesTest {
 		
 
 	}
+	
+
 	
 	@Test
 	void testCheckeoElCostoDeLaOrdenDeExportacion(){
@@ -133,6 +155,14 @@ class OrdenesTest {
 	void testGetContainer() {
 		//when(ordenImportacionTest.getContainer()).thenReturn(containerTest);
 		assertEquals(ordenImportacionTest.getContainer(), containerTest);
+	}
+	@Test
+	void testGetFechaSalida() {
+		assertEquals(ordenImportacionTest.getFechaDeSalida(), horaTest);
+	}
+	@Test
+	void testGetFechaLlegada() {
+		assertEquals (ordenImportacionTest.getFechaDeLlegada(), horaTest2);
 	}
 	
 }
