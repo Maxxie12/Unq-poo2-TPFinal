@@ -24,7 +24,7 @@ public class Turno {
 
 
 
-	private boolean estaDentroDeLaTolerancia(LocalDateTime horaDelTurno, LocalDateTime horaQueLlego, int tolerancia ) {
+	public boolean estaDentroDeLaTolerancia(LocalDateTime horaDelTurno, LocalDateTime horaQueLlego, int tolerancia ) {
 		 Duration diferencia = Duration.between(horaDelTurno, horaQueLlego );
 		 
 	        long diferenciaEnHoras = Math.abs(diferencia.toHours());

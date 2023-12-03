@@ -2,6 +2,8 @@ package ar.edu.unq.poo2.Ordenes.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,51 +35,33 @@ class TurnoTest {
 	
 	private Camion camionTest;
 	private Conductor conductorTest;
-	private LocalDate horaTest;
+	private LocalDateTime horaTest;
 	private Turno turnoTest;
-	
-	
-	//private MenorTiempo menorTiempo;
-	//private MenorCantParadas menosParadas;	
-	//private MenorPrecio menorPrecio;
-	
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-	
-	
 		camionTest = mock(Camion.class);
 		conductorTest = mock(Conductor.class);
-		LocalDateTime horaLLegadaTest =LocalDateTime.now() ;
+		horaTest = LocalDateTime.now();
 		
-		Turno turnoTest = new Turno(camionTest, conductorTest, horaLLegadaTest);
+		turnoTest = new Turno(camionTest, conductorTest, horaTest);
 
-		
+		//when(camionTest.equals(camionTest)).thenReturn(true);
+		//when(conductorTest.equals(conductorTest)).thenReturn(true);
+		//when(turnoTest.estaDentroDeLaTolerancia(any(LocalDateTime.class), any(LocalDateTime.class), anyInt())).thenReturn(true);
+	}
 
-		
-		
-		
-		//camionTest  =  new Camion("1234");
-		//horaTest  =  new MenorPrecio();
+	@Test
+	void testVerificarTurno() {
+		assertTrue(turnoTest.verificarTurno(camionTest, conductorTest, horaTest, 3));
+	}
 
+	@Test
+	void testVerificoLaTolerancia() {
+		assertTrue(turnoTest.estaDentroDeLaTolerancia(horaTest, horaTest, 3));
 	}
 	
-	///estos dos falla y no se por que
-	@Test
-		void testVerificoLaTolerancia(){//importacion
-			LocalDateTime horaLLegadaTest =LocalDateTime.now();
-			Turno turnoTest = new Turno(camionTest, conductorTest, horaLLegadaTest);
-
-			when(turnoTest.verificarTurno(camionTest, conductorTest, horaLLegadaTest , 3)).thenReturn(true);
-			assertTrue(turnoTest.verificarTurno(camionTest, conductorTest, horaLLegadaTest, 3) );
-	}
-	@Test
-		void testVerificarTurno() {
-		LocalDateTime horaLLegadaTest =LocalDateTime.now();
-		Turno turnoTest = new Turno(camionTest, conductorTest, horaLLegadaTest);
-		
-
-	}
+	
 }
 	
 	
