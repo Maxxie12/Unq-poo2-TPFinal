@@ -99,7 +99,8 @@ public abstract class Orden {
 
 
 	public void mandarFacturaACliente() {
-		
+		double costo = this.calcularCostoDeOrden();
+		this.getCliente().mandarEmail("Factura", "Su factura total es de " + costo + "$"  );
 	}
 	
 }

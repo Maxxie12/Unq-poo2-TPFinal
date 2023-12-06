@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ar.edu.unq.poo2.BuscadorDeViajes.IBuscadorViajes;
@@ -163,7 +162,7 @@ public class TerminalGestionada extends Terminal {
 	private List<Orden> getOrdenesDeExportacionQueEsperan(Buque buque) {
 		return this.ordenesRegistradas.stream()
 	            .filter(o -> o.getViajeSeleccionado().getBuqueAsignado().equals(buque))
-	            .filter(o -> o instanceof OrdenImportacion)
+	            .filter(o -> o instanceof OrdenExportacion)
 	            .collect(Collectors.toList());
 				
 	}
@@ -171,7 +170,7 @@ public class TerminalGestionada extends Terminal {
 	private void mandarFacturasPorEl(Buque buque) {
 		List<Orden> lista = this.getOrdenesConEl(buque);
 		lista.stream()
-		.forEach(o -> o.mandarFacturaACliente());
+		.forEach(o -> o.mandarFacturaACliente()); 
 		
 	}
 	
@@ -189,13 +188,16 @@ public class TerminalGestionada extends Terminal {
 	}
 	
 	
-	public Optional<LocalDate> devolverFechaProximaHacia(Terminal terminalDestino) {
+	public LocalDate devolverFechaProximaHacia(Terminal terminalDestino) {
 	        return this.lineasNavierasRegistradas.stream()
-	                .map(l -> l.proximaSalidaA(terminalDestino))
-	                .min(LocalDate::compareTo);
+	        		.filter(l -> (l.proximaSalidaA(terminalDestino) != null))
+	                .map(l -> l.proximaSalidaA(terminalDestino))	                
+	                .min(LocalDate::compareTo)
+	                .orElseThrow(() -> new IllegalArgumentException("No tenemos ninguna fecha proxima a esa terminal."));
+	}
 	                
-	    }
-	
+	    
+
 	
 	
 	//setters

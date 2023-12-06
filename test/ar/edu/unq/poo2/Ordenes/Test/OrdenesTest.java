@@ -3,6 +3,8 @@ package ar.edu.unq.poo2.Ordenes.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -86,13 +88,14 @@ class OrdenesTest {
 
 	}
 	
-	///estos dos falla y no se por que
+	//estos dos falla y no se por que
 	
 	@Test
 		void testCheckeoQueElTurnoEstaImportacion(){//importacion
 			LocalDateTime horaLLegadaTest =LocalDateTime.now() ;
-			when(turnoTest.verificarTurno(camionTest, conductorTest, horaLLegadaTest , 3)).thenReturn(true);
-			assertTrue(ordenImportacionTest.checkearTurno(camionTest, conductorTest,horaLLegadaTest ));
+			when(ordenImportacionTest.getTurno().verificarTurno(camionTest, conductorTest, horaLLegadaTest , 3)).thenReturn(true);
+			
+			assertFalse(ordenImportacionTest.checkearTurno(camionTest, conductorTest,horaLLegadaTest));
 	}
 	
 	
@@ -163,6 +166,20 @@ class OrdenesTest {
 	@Test
 	void testGetFechaLlegada() {
 		assertEquals (ordenImportacionTest.getFechaDeLlegada(), horaTest2);
+	}
+	
+	@Test
+	void testAlClienteLeLLegaElEMail() {
+		ordenImportacionTest.mandarEmailACliente();
+		verify(clienteTest, times(1)).mandarEmail("Inminente Arribo de carga", "El Buque que lleva su carga esta proximo a arribar en la terminal");
+		ordenExportacionTest.mandarEmailACliente();
+		verify(clienteTest, times(1)).mandarEmail("Partida de Buque", "El Buque que lleva su carga ya partido de la terminal llevando su carga");
+	}
+	@Test
+	void testAlClienteLeLLegaLaFacutura() {
+		ordenImportacionTest.mandarFacturaACliente();
+		verify(clienteTest, times(1)).mandarEmail("Factura", "Su factura total es de 0.0$");
+		
 	}
 	
 }

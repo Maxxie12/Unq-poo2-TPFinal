@@ -1,6 +1,9 @@
 package ar.edu.unq.poo2.TerminalGestionadaTest;
 
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -295,4 +298,59 @@ class TerminalGestionadaTest {
 		verify(buqueParaOrden, times(1)).avisarDepart();
 		verify(buqueParaOrden2, times(0)).avisarDepart();
 	}
-}
+	
+	// Test de integracion ya que las ordenes las creo entonces no las puedo mockear 
+	
+	@Test
+	void testUnaTerminalCuandoUnBuqueSeAcercaMandaUnMensajeALosClientesRelacionadosConEseBuque() {
+		terminalGestionadaTest.crearOrdenImportacion(cliente1, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenImportacion(cliente2, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden2, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenExportacion(cliente1, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenExportacion(cliente2, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden2, terminal, horaDelTurno);
+		
+		//Solo para las ordenes de importacion es el mensaje
+		terminalGestionadaTest.inminenteArriboDelBuque(buqueParaOrden); 
+		verify(cliente1, times(1)).mandarEmail(anyString(), anyString());
+		verify(cliente2, times(0)).mandarEmail(anyString(), anyString());
+	}
+	
+	@Test
+	void testUnaTerminalCuandoUnBuqueSeAlejoDeLaTerminalMandaUnMensajeALosClientesRelacionadosConEseBuque() {
+		terminalGestionadaTest.crearOrdenExportacion(cliente1, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenImportacion(cliente1, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden2, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenExportacion(cliente2, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden2, terminal, horaDelTurno);
+		terminalGestionadaTest.crearOrdenImportacion(cliente2, containerParaOrden, listaDeServiciosParaOrden, conductorParaOrden, camionParaOrden, viajeParaOrden, terminal, horaDelTurno);
+		terminalGestionadaTest.elBuqueAbandonoLasCercanias(buqueParaOrden2); 
+		
+		//Solo para las ordenes de Exportacion es el mensaje
+		//Pero tambien debe mandar las facuturas aca si cualquiera relacionada con el buque
+		verify(cliente1, times(1)).mandarEmail(anyString(), anyString());// 1 mensaje factura
+		verify(cliente2, times(2)).mandarEmail(anyString(), anyString());// 1 factura y 1 relacionado con su orden
+	}
+	
+	
+	@Test
+	void testUnaTerminalPuedeDevolverLaProximaFechaDeSalidaDeUnViajeA() {
+		when(lineaRegistrada.proximaSalidaA(terminal)).thenReturn(LocalDate.of(2024, 2, 13));
+		when(lineaRegistrada2.proximaSalidaA(terminal)).thenReturn(LocalDate.of(2023, 12, 24));
+		assertEquals(LocalDate.of(2023, 12, 24), terminalGestionadaTest.devolverFechaProximaHacia(terminal));
+		
+	}
+	
+	
+	@Test
+	void testUnaTerminalPuedeDevolverLaProximaFechaDeSalidaDeUnViajeACasoNull() {
+		when(lineaRegistrada.proximaSalidaA(terminal)).thenReturn(LocalDate.of(2024, 2, 13));
+		when(lineaRegistrada2.proximaSalidaA(terminal)).thenReturn(null);
+		assertEquals(LocalDate.of(2024, 2, 13), terminalGestionadaTest.devolverFechaProximaHacia(terminal));
+		
+	}
+	
+	@Test
+	void testUnaTerminalPuedeDevolverLaProximaFechaDeSalidaDeUnViajeACasoAmbosNull() {
+		assertThrows(IllegalArgumentException.class, () -> {
+	        terminalGestionadaTest.devolverFechaProximaHacia(terminal);
+	    });
+	};
+	}
+

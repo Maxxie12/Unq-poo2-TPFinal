@@ -23,7 +23,7 @@ public class OrdenExportacion extends Orden{
 
 	@Override
 	public void mandarEmailACliente() {
-		
+		getCliente().mandarEmail("Partida de Buque", "El Buque que lleva su carga ya partido de la terminal llevando su carga");
 	}
 	
 	public boolean checkearTurno(Camion camionQueLlego, Conductor conductorDelCamion, LocalDateTime horaQueLlego) {

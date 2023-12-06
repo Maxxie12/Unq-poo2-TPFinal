@@ -23,7 +23,7 @@ public class OrdenImportacion extends Orden{
 
 	@Override
 	public void mandarEmailACliente() {
-		
+		getCliente().mandarEmail("Inminente Arribo de carga","El Buque que lleva su carga esta proximo a arribar en la terminal");
 	}
 
 	@Override

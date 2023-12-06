@@ -41,14 +41,13 @@ class TurnoTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		camionTest = mock(Camion.class);
+		
 		conductorTest = mock(Conductor.class);
 		horaTest = LocalDateTime.now();
 		
 		turnoTest = new Turno(camionTest, conductorTest, horaTest);
 
-		//when(camionTest.equals(camionTest)).thenReturn(true);
-		//when(conductorTest.equals(conductorTest)).thenReturn(true);
-		//when(turnoTest.estaDentroDeLaTolerancia(any(LocalDateTime.class), any(LocalDateTime.class), anyInt())).thenReturn(true);
+		
 	}
 
 	@Test
@@ -59,6 +58,20 @@ class TurnoTest {
 	@Test
 	void testVerificoLaTolerancia() {
 		assertTrue(turnoTest.estaDentroDeLaTolerancia(horaTest, horaTest, 3));
+	}
+	
+	@Test
+	void testVerificarTurnoCasoFalso() {
+		Camion camion = mock(Camion.class);
+		assertFalse(turnoTest.verificarTurno(camion, conductorTest, horaTest, 3));
+		Conductor conductor = mock(Conductor.class);
+		assertFalse(turnoTest.verificarTurno(camionTest, conductor, horaTest, 3));
+	}
+
+	@Test
+	void testVerificoLaToleranciaFalso() {
+		Turno test = new Turno(camionTest, conductorTest, LocalDateTime.of(2023, 12, 10, 10, 30));
+		assertFalse(turnoTest.verificarTurno(camionTest, conductorTest, LocalDateTime.of(2023, 12, 10, 14, 30), 3));
 	}
 	
 	
