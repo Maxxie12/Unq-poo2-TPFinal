@@ -170,11 +170,18 @@ public class TerminalGestionada extends Terminal {
 	private void mandarFacturasPorEl(Buque buque) {
 		List<Orden> lista = this.getOrdenesConEl(buque);
 		lista.stream()
-		.forEach(o -> o.mandarFacturaACliente()); 
+		.forEach(o -> o.mandarFacturaACliente());
+		this.pasarOrdenesAFinalizada(lista);
 		
 	}
 	
 	
+	private void pasarOrdenesAFinalizada(List<Orden> lista2) {
+		this.ordenesFinalizadas.addAll(lista2);
+		this.ordenesRegistradas.removeAll(lista2);
+		
+	}
+
 	private List<Orden> getOrdenesConEl(Buque buque) {
 		return this.ordenesRegistradas.stream()
 				   .filter(o -> o.RelacionadaA(buque))
